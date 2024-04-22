@@ -14,7 +14,7 @@ public class MovieFactory {
                 .setRating(inputDto.getRating());
     }
 
-    public static Movie updateMovie(Movie movie, MovieDto inputDto){
+    public static Movie updateMovie(Movie movie, MovieInputDto inputDto){
         return movie
                 .setName(inputDto.getName())
                 .setDescription(inputDto.getDescription())

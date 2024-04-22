@@ -20,8 +20,10 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Column(length = 128)
     private String name;
 
+    @Column(length = 2048)
     private String description;
 
     private Date releaseDate;

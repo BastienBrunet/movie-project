@@ -34,13 +34,13 @@ public class MovieController {
     }
 
     @PutMapping
-    private ResponseEntity<MovieDto> updateMovie(@Valid @RequestBody MovieDto movieInputDto){
+    private ResponseEntity<MovieDto> updateMovie(@Valid @RequestBody MovieInputDto movieInputDto){
         return ResponseEntity.ok(movieService.update(movieInputDto));
     }
 
     @DeleteMapping("/{id}")
     private ResponseEntity<String> deleteMovie(@PathVariable String id){
         movieService.deleteMovie(id);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

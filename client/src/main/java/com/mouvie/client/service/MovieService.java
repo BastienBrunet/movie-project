@@ -1,5 +1,6 @@
 package com.mouvie.client.service;
 
+import com.mouvie.client.config.customexception.ElementNotFoundException;
 import com.mouvie.client.dto.mapper.MovieDtoMapper;
 import com.mouvie.client.dto.model.MovieDto;
 import com.mouvie.client.dto.model.MovieInputDto;
@@ -18,7 +19,7 @@ public class MovieService {
     private final MovieRepository movieRepository;
 
     public MovieDto getById(String id) {
-        Movie movie = movieRepository.findById(id).orElseThrow();
+        Movie movie = movieRepository.findById(id).orElseThrow( () -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", id)));
         return MovieDtoMapper.toMovieDto(movie);
     }
 
@@ -35,8 +36,8 @@ public class MovieService {
         return MovieDtoMapper.toMovieDto(movie);
     }
 
-    public MovieDto update(MovieDto inputDto) {
-        Movie movie = movieRepository.findById(inputDto.getId()).orElseThrow();
+    public MovieDto update(MovieInputDto inputDto) {
+        Movie movie = movieRepository.findById(inputDto.getId()).orElseThrow( () -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", inputDto.getId())));
 
         movie = MovieFactory.updateMovie(movie, inputDto);
         movieRepository.save(movie);
@@ -45,7 +46,7 @@ public class MovieService {
     }
 
     public void deleteMovie(String id){
-        // TODO : Check if movie exists
+        if (movieRepository.existsById(id)) throw new ElementNotFoundException(String.format("Unable to find Movie [id = %s]",id));
         movieRepository.deleteById(id);
     }
 }
