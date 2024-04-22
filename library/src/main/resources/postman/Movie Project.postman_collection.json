@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "f199e923-066c-4a6b-82d0-ad119dde9330",
+		"name": "Movie Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25108943"
+	},
+	"item": [
+		{
+			"name": "Get by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/movie/ac71f0ea-86fe-4f54-ba7f-64e584a54b23",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"movie",
+						"ac71f0ea-86fe-4f54-ba7f-64e584a54b23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{server}}/movie",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"movie"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"\",\r\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam condimentum neque tellus. Phasellus non viverra eros. Etiam auctor pharetra ultrices. Maecenas rhoncus sapien ac ultrices dapibus.\",\r\n    \"releaseDate\": \"2008-07-18\",\r\n    \"rating\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/movie",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"ac71f0ea-86fe-4f54-ba7f-64e584a54b23\",\r\n    \"name\": \"The Dark Knight 22\",\r\n    \"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam condimentum neque tellus. Phasellus non viverra eros. Etiam auctor pharetra ultrices. Maecenas rhoncus sapien ac ultrices dapibus.\",\r\n    \"releaseDate\": \"2008-07-18\",\r\n    \"rating\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/movie",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/movie/ac71f0ea-86fe-4f54-ba7f-64e584a54b23",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"movie",
+						"ac71f0ea-86fe-4f54-ba7f-64e584a54b23"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
