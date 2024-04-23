@@ -1,15 +1,14 @@
 package com.mouvie.library.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -21,8 +20,9 @@ public class Category {
     private String id;
 
     @Column(length = 128)
+    @Size(max = 128)
     private String name;
 
     @ManyToMany(mappedBy = "categories")
-    private List<Movie> movie;
+    private List<Movie> movies;
 }

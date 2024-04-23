@@ -13,7 +13,9 @@ public class MovieDtoMapper {
                 .setName(movie.getName())
                 .setDescription(movie.getDescription())
                 .setReleaseDate(movie.getReleaseDate())
-                .setRating(movie.getRating());
+                .setRating(movie.getRating())
+                //.setCategories(movie.getCategories())
+                ;
     }
 
     public static List<MovieDto> toMovieDtoList(List<Movie> movies){

@@ -1,16 +1,18 @@
 package com.mouvie.library.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
@@ -22,22 +24,29 @@ public class Movie {
     private String id;
 
     @Column(length = 128)
+    @Size(max = 128)
     private String name;
 
     @Column(length = 2048)
+    @Size(max = 2048)
     private String description;
 
+    @NotNull
     private Date releaseDate;
 
+    @Min(0)
+    @Max(5)
     private Integer rating;
 
+    
     // Relationships
 
+    //fetch = FetchType.EAGER
     @ManyToMany
     @JoinTable(
-            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "categories_id"}),
-            name = "movies_categories",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "category_id"}),
+            name = "category_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id"))
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 }

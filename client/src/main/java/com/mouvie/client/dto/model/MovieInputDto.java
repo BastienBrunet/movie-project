@@ -7,6 +7,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.sql.Date;
+import java.util.List;
+
+import com.mouvie.library.model.Category;
 
 @Data
 public class MovieInputDto {
@@ -26,4 +29,6 @@ public class MovieInputDto {
     @Max(value = 5, message = "Rating should be between 0 and 5")
     @Min(value = 0, message = "Rating should be between 0 and 5")
     private Integer rating;
+    
+    //private List<Category> categories;
 }
