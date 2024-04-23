@@ -1,5 +1,6 @@
 package com.mouvie.client.service;
 
+
 import com.mouvie.client.config.customexception.ElementNotFoundException;
 import com.mouvie.client.dto.mapper.MovieDtoMapper;
 import com.mouvie.client.dto.model.MovieDto;
@@ -50,7 +51,7 @@ public class MovieService {
     }
 
     public void deleteMovie(String id){
-        if (movieRepository.existsById(id)) throw new ElementNotFoundException(String.format("Unable to find Movie [id = %s]",id));
+        if (!movieRepository.existsById(id)) throw new ElementNotFoundException(String.format("Unable to find Movie [id = %s]",id));
         movieRepository.deleteById(id);
     }
 }

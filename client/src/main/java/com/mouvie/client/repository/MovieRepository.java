@@ -1,14 +1,11 @@
 package com.mouvie.client.repository;
 
 import com.mouvie.client.dto.model.MovieDto;
-import com.mouvie.library.model.Movie;
 import com.mouvie.library.repository.MovieLibRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface MovieRepository extends MovieLibRepository {

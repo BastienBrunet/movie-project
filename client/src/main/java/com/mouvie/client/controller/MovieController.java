@@ -7,6 +7,7 @@ import com.mouvie.client.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping("/{id}")
-    private ResponseEntity<MovieDto> getMovieById(@PathVariable String id){
+    public ResponseEntity<MovieDto> getMovieById(@PathVariable String id){
         return ResponseEntity.ok(movieService.getById(id));
     }
 

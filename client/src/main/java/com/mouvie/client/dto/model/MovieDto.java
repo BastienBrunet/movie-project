@@ -1,13 +1,19 @@
 package com.mouvie.client.dto.model;
 
+import com.mouvie.library.model.Category;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.sql.Date;
+import java.util.List;
+
 
 @Data
 @Accessors(chain = true)
-public class MovieDto {
+@EqualsAndHashCode(callSuper = true)
+public class MovieDto extends RepresentationModel<MovieDto> {
 
     private String id;
 
