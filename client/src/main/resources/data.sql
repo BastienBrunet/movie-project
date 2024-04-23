@@ -208,7 +208,7 @@ INSERT INTO movies (id, name, description, rating, release_date) VALUES
                                                                      ('df38f98e-abd6-4c1a-af8d-c342920cb02a', 'The Dark Knight 4',  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam condimentum neque tellus. Phasellus non viverra eros. Etiam auctor pharetra ultrices. Maecenas rhoncus sapien ac ultrices dapibus.', '4', '2012-09-20')
 ON Conflict(id) DO NOTHING;
 
-INSERT INTO movies_categories(movie_id, categories_id) VALUES
+INSERT INTO category_movie(movie_id, category_id) VALUES
                                                            ('b835692b-cc7a-479d-b96b-217f4a1c8cd6', '4c32febb-176f-46a5-aaa6-58995d9a67ba'),
                                                            ('905f88fe-8190-4dd5-a565-67dbd0246b18', '4c32febb-176f-46a5-aaa6-58995d9a67ba'),
                                                            ('5ac205f8-fe36-4ed0-b1e3-dd6cbba63ff3', '4c32febb-176f-46a5-aaa6-58995d9a67ba'),
@@ -408,4 +408,4 @@ INSERT INTO movies_categories(movie_id, categories_id) VALUES
                                                            ('2ce69c5b-5906-4c3c-ad01-9e69ddf9685e', '29bb890a-92b2-4fdc-8cb2-610ee6ebb018'),
                                                            ('4e9a6c72-2368-4415-96c5-3f7a6b95ccd6', '29bb890a-92b2-4fdc-8cb2-610ee6ebb018'),
                                                            ('df38f98e-abd6-4c1a-af8d-c342920cb02a', '29bb890a-92b2-4fdc-8cb2-610ee6ebb018')
-ON Conflict(movie_id, categories_id) DO NOTHING;
+ON Conflict(movie_id, category_id) DO NOTHING;

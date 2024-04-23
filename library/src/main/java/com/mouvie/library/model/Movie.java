@@ -45,9 +45,9 @@ public class Movie {
 
     @ManyToMany
     @JoinTable(
-            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "categories_id"}),
-            name = "movies_categories",
+            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "category_id"}),
+            name = "category_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "categories_id"))
+            inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<Category> categories;
 }
