@@ -1,6 +1,7 @@
 package com.mouvie.library.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class Category {
     private String id;
 
     @Column(length = 128)
+    @Size(max = 128)
     private String name;
 
     @ManyToMany(mappedBy = "categories")
