@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +30,14 @@ public class Movie {
     private Date releaseDate;
 
     private Integer rating;
+
+    // Relationships
+
+    @ManyToMany
+    @JoinTable(
+            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "categories_id"}),
+            name = "movies_categories",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "categories_id"))
+    private List<Category> categories;
 }
