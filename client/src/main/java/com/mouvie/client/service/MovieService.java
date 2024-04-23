@@ -4,10 +4,13 @@ import com.mouvie.client.config.customexception.ElementNotFoundException;
 import com.mouvie.client.dto.mapper.MovieDtoMapper;
 import com.mouvie.client.dto.model.MovieDto;
 import com.mouvie.client.dto.model.MovieInputDto;
+import com.mouvie.client.dto.model.page.PaginationPublicDto;
 import com.mouvie.client.repository.MovieRepository;
 import com.mouvie.client.tools.factory.MovieFactory;
 import com.mouvie.library.model.Movie;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,9 +26,10 @@ public class MovieService {
         return MovieDtoMapper.toMovieDto(movie);
     }
 
-    public List<MovieDto> getAll(){
-        List<Movie> movies = movieRepository.findAll();
-        return MovieDtoMapper.toMovieDtoList(movies);
+    public PaginationPublicDto getAll(Pageable pageable) {
+        Page<MovieDto> movies = movieRepository.findPage(pageable);
+
+        return new PaginationPublicDto(movies);
     }
 
     public MovieDto create(MovieInputDto inputDto) {

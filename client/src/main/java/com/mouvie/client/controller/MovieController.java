@@ -2,9 +2,11 @@ package com.mouvie.client.controller;
 
 import com.mouvie.client.dto.model.MovieDto;
 import com.mouvie.client.dto.model.MovieInputDto;
+import com.mouvie.client.dto.model.page.PaginationPublicDto;
 import com.mouvie.client.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +26,8 @@ public class MovieController {
     }
 
     @GetMapping
-    private ResponseEntity<List<MovieDto>> getAllMovies(){
-        return ResponseEntity.ok(movieService.getAll());
+    private ResponseEntity<PaginationPublicDto> getAllMovies(Pageable pageable){
+        return ResponseEntity.ok(movieService.getAll(pageable));
     }
 
     @PostMapping

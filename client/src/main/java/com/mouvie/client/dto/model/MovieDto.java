@@ -18,4 +18,15 @@ public class MovieDto {
     private Date releaseDate;
 
     private Integer rating;
+
+    public MovieDto() {
+    }
+
+    public MovieDto(String id, String name, String description, Date releaseDate, Integer rating) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+    }
 }
