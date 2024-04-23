@@ -10,8 +10,8 @@ V2 pour TP 2 du 23/04/2024 : Réunification de 2 projets individuels pour mettre
 3. [Introduction](#introduction)
 4. [Membres du projet](#membres-du-projet)
 5. [Technologies utilisées](#technologies-utilisées)  
-6. [Contraintes] (#contraintes)
-7. [Documentations] (#documentations)
+6. [Contraintes](#contraintes)
+7. [Documentations](#documentations)
 8. [Contact](#contact)  
 
 
@@ -29,7 +29,10 @@ Pour plus de simplicité, vous pouvez utiliser Docker, ou si vous êtes à l'ais
 - Installer Docker : https://docs.docker.com/engine/install/
 - Ouvrir un CMD
 - Utilisez la commande  `cd` pour naviguer jusqu'à la racine du projet, où ce trouve le fichier `docker-compose.yaml`
-- Lancer la commande suivante : `docker compose up -d`
+- Lancer la commande :
+ ```sh
+   docker compose up -d
+```
 
 
 #### Avec tout le nécessaire en local
@@ -54,7 +57,7 @@ Pour plus de simplicité, vous pouvez utiliser Docker, ou si vous êtes à l'ais
 
 1. Avant tout, cloner le projet ;) 
 ```sh
-   git clone https://gitlab.com/Clara1606/mouvie-kotlin.git
+   git clone https://github.com/BastienBrunet/movie-project.git
 ```
 
 2. Ouvrer le projet avec un IDE (Eclipse, Intellij ou celui que vous connaissez bien pour du JAVA)
