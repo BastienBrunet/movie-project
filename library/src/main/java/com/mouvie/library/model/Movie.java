@@ -41,6 +41,7 @@ public class Movie {
     
     // Relationships
 
+    //fetch = FetchType.EAGER
     @ManyToMany
     @JoinTable(
             uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "category_id"}),

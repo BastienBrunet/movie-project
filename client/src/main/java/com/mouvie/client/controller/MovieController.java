@@ -1,10 +1,13 @@
 package com.mouvie.client.controller;
 
+import com.mouvie.client.dto.model.CategoryDto;
 import com.mouvie.client.dto.model.MovieDto;
 import com.mouvie.client.dto.model.MovieInputDto;
 import com.mouvie.client.service.MovieService;
+
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,12 @@ public class MovieController {
     @GetMapping("/{id}")
     private ResponseEntity<MovieDto> getMovieById(@PathVariable String id){
         return ResponseEntity.ok(movieService.getById(id));
+    }
+    
+
+    @GetMapping("/{id}/categories")
+    private ResponseEntity<List<CategoryDto>> getCategoriesOfMovie(@PathVariable String id){
+        return ResponseEntity.ok(movieService.getCategoriesOfFilm(id));
     }
 
     @GetMapping
