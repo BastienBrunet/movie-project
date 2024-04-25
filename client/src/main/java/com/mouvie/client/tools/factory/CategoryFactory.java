@@ -1,6 +1,6 @@
 package com.mouvie.client.tools.factory;
 
-import com.mouvie.client.dto.model.CategoryInputDto;
+import com.mouvie.client.dto.model.category.CategoryInputDto;
 import com.mouvie.library.model.Category;
 
 public class CategoryFactory {

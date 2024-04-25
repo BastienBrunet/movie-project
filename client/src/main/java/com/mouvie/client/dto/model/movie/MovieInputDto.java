@@ -1,4 +1,4 @@
-package com.mouvie.client.dto.model;
+package com.mouvie.client.dto.model.movie;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -7,9 +7,6 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.sql.Date;
-import java.util.List;
-
-import com.mouvie.library.model.Category;
 
 @Data
 public class MovieInputDto {

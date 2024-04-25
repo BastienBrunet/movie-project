@@ -1,4 +1,4 @@
-package com.mouvie.client.dto.model;
+package com.mouvie.client.dto.model.movie;
 
 import lombok.Data;
 

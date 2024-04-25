@@ -1,15 +1,14 @@
 package com.mouvie.client.controller;
 
-import com.mouvie.client.dto.model.CategoryDto;
-import com.mouvie.client.dto.model.MovieDto;
-import com.mouvie.client.dto.model.MovieInputDto;
+import com.mouvie.client.dto.model.category.CategoryDto;
+import com.mouvie.client.dto.model.movie.MovieDto;
+import com.mouvie.client.dto.model.movie.MovieInputDto;
 import com.mouvie.client.dto.model.page.PaginationPublicDto;
-import com.mouvie.client.service.MovieService;
+import com.mouvie.client.service.movie.MovieService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/movies")
 @AllArgsConstructor
-public class MovieController {
+public class MovieController extends BaseController {
 
     private final MovieService movieService;
 
@@ -30,27 +29,28 @@ public class MovieController {
     
 
     @GetMapping("/{id}/categories")
-    private ResponseEntity<List<CategoryDto>> getCategoriesOfMovie(@PathVariable String id){
+    public ResponseEntity<List<CategoryDto>> getCategoriesOfMovie(@PathVariable String id){
         return ResponseEntity.ok(movieService.getCategoriesOfFilm(id));
     }
 
+    @Override
     @GetMapping
-    private ResponseEntity<PaginationPublicDto> getAllMovies(Pageable pageable){
+    public ResponseEntity<PaginationPublicDto> getAll(Pageable pageable){
         return ResponseEntity.ok(movieService.getAll(pageable));
     }
 
     @PostMapping
-    private ResponseEntity<MovieDto> createMovie(@Valid @RequestBody MovieInputDto movieInputDto){
+    public ResponseEntity<MovieDto> createMovie(@Valid @RequestBody MovieInputDto movieInputDto){
         return new ResponseEntity<>(movieService.create(movieInputDto), HttpStatus.CREATED);
     }
 
     @PutMapping
-    private ResponseEntity<MovieDto> updateMovie(@Valid @RequestBody MovieInputDto movieInputDto){
+    public ResponseEntity<MovieDto> updateMovie(@Valid @RequestBody MovieInputDto movieInputDto){
         return ResponseEntity.ok(movieService.update(movieInputDto));
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<String> deleteMovie(@PathVariable String id){
+    public ResponseEntity<String> deleteMovie(@PathVariable String id){
         movieService.deleteMovie(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

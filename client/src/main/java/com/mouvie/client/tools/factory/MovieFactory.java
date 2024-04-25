@@ -1,6 +1,6 @@
 package com.mouvie.client.tools.factory;
 
-import com.mouvie.client.dto.model.MovieInputDto;
+import com.mouvie.client.dto.model.movie.MovieInputDto;
 import com.mouvie.library.model.Movie;
 
 public class MovieFactory {

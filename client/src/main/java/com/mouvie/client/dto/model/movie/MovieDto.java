@@ -1,15 +1,17 @@
-package com.mouvie.client.dto.model;
+package com.mouvie.client.dto.model.movie;
 
-import com.mouvie.library.model.Category;
+import com.mouvie.client.controller.MovieController;
+import com.mouvie.client.dto.model.page.PaginationPublicDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.sql.Date;
-import java.util.List;
 
-import com.mouvie.library.model.Category;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 
 @Data
 @Accessors(chain = true)
@@ -31,11 +33,16 @@ public class MovieDto extends RepresentationModel<MovieDto> {
     public MovieDto() {
     }
 
-    public MovieDto(String id, String name, String description, Date releaseDate, Integer rating) {
+    public MovieDto(String id, String name, String description, Date releaseDate, Integer rating, boolean isHalJson) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
         this.rating = rating;
+
+        if(isHalJson) {
+            add(linkTo(methodOn(MovieController.class).getMovieById(id)).withSelfRel());
+            add(linkTo(methodOn(MovieController.class).getCategoriesOfMovie(id)).withRel("categories"));
+        }
     }
 }

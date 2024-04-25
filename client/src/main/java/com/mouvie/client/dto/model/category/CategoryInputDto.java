@@ -1,12 +1,8 @@
-package com.mouvie.client.dto.model;
+package com.mouvie.client.dto.model.category;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-
-import java.util.List;
-
-import com.mouvie.library.model.Movie;
 
 @Data
 public class CategoryInputDto {
