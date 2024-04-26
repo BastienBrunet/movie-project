@@ -12,18 +12,22 @@ import com.mouvie.client.dto.model.page.PaginationPublicDto;
 import com.mouvie.client.repository.MovieRepository;
 import com.mouvie.client.tools.factory.MovieFactory;
 import com.mouvie.library.model.Movie;
+import com.mouvie.library.service.storage.IFileSystemStorageService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
 public class MovieService implements IMovieService {
 
     private final MovieRepository movieRepository;
+    private final IFileSystemStorageService storageService;
     private final AppContext appContext;
 
     @Override
@@ -42,13 +46,15 @@ public class MovieService implements IMovieService {
     public PaginationPublicDto getAll(Pageable pageable) {
         Page<MovieDto> movies = movieRepository.findPage(pageable, appContext.isHalJson());
 
-        return new PaginationPublicDto(movies, MovieController.class, appContext.isHalJson() );
+        return new PaginationPublicDto(movies, MovieController.class, appContext.isHalJson());
     }
 
     @Override
     public MovieDto create(MovieInputDto inputDto) {
 
-        Movie movie = MovieFactory.createMovie(inputDto);
+        String completeFilename = saveMovieCover(inputDto);
+
+        Movie movie = MovieFactory.createMovie(inputDto, completeFilename);
         movieRepository.save(movie);
 
         return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
@@ -58,7 +64,9 @@ public class MovieService implements IMovieService {
     public MovieDto update(MovieInputDto inputDto) {
         Movie movie = movieRepository.findById(inputDto.getId()).orElseThrow( () -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", inputDto.getId())));
 
-        movie = MovieFactory.updateMovie(movie, inputDto);
+        String completeFilename = saveMovieCover(inputDto);
+
+        movie = MovieFactory.updateMovie(movie, inputDto, completeFilename);
         movieRepository.save(movie);
 
         return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
@@ -68,5 +76,16 @@ public class MovieService implements IMovieService {
     public void deleteMovie(String id) {
         if (!movieRepository.existsById(id)) throw new ElementNotFoundException(String.format("Unable to find Movie [id = %s]",id));
         movieRepository.deleteById(id);
+    }
+
+    private String saveMovieCover(MovieInputDto inputDto) {
+        String completeFilename = null;
+
+        if (inputDto.getCover() != null) {
+            String uuid = UUID.randomUUID().toString();
+            storageService.store(inputDto.getCover().getBase64(), uuid, inputDto.getCover().getExtension());
+            completeFilename = uuid + inputDto.getCover().getExtension();
+        }
+        return completeFilename;
     }
 }

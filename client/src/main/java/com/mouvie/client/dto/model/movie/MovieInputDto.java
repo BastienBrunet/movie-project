@@ -1,5 +1,6 @@
 package com.mouvie.client.dto.model.movie;
 
+import com.mouvie.client.dto.model.generic.Base64FileInputDto;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -22,6 +23,8 @@ public class MovieInputDto {
     private String description;
 
     private Date releaseDate;
+
+    private Base64FileInputDto cover;
 
     @Max(value = 5, message = "Rating should be between 0 and 5")
     @Min(value = 0, message = "Rating should be between 0 and 5")

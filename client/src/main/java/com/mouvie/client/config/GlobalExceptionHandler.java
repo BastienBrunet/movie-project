@@ -1,6 +1,7 @@
 package com.mouvie.client.config;
 
 import com.mouvie.client.config.customexception.ElementNotFoundException;
+import com.mouvie.library.exception.StorageFileNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ElementNotFoundException.class)
     public ResponseEntity<Object> handleElementNotFoundException(ElementNotFoundException ex) {
+        return response(ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity<Object> handleStorageFileNotFoundException(StorageFileNotFoundException ex) {
         return response(ex, HttpStatus.NOT_FOUND);
     }
 

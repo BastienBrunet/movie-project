@@ -38,6 +38,7 @@ public class Movie {
     @Max(5)
     private Integer rating;
 
+    private String cover;
     
     // Relationships
 

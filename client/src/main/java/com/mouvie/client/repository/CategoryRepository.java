@@ -20,7 +20,7 @@ public interface CategoryRepository extends CategoryLibRepository {
 	Page<CategoryDto> findPage(Pageable pageable, boolean isHalJson);
 
 	@Query("SELECT " //
-			+ " new com.mouvie.client.dto.model.movie.MovieDto(m.id, m.name, m.description, m.releaseDate, m.rating, :isHalJson) " //
+			+ " new com.mouvie.client.dto.model.movie.MovieDto(m.id, m.name, m.description, m.releaseDate, m.rating, m.cover, :isHalJson) " //
 			+ " FROM Category c " //
 			+ " JOIN c.movies m " //
 			+ " WHERE c.id = :id ") //
