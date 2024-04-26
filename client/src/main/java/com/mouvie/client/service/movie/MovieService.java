@@ -3,6 +3,7 @@ package com.mouvie.client.service.movie;
 
 import com.mouvie.client.config.appcontext.AppContext;
 import com.mouvie.client.config.customexception.ElementNotFoundException;
+import com.mouvie.client.config.customexception.InvalidFileFormatException;
 import com.mouvie.client.controller.MovieController;
 import com.mouvie.client.dto.mapper.MovieDtoMapper;
 import com.mouvie.client.dto.model.category.CategoryDto;
@@ -29,6 +30,8 @@ public class MovieService implements IMovieService {
     private final MovieRepository movieRepository;
     private final IFileSystemStorageService storageService;
     private final AppContext appContext;
+
+    private final List<String> IMAGE_EXTENSION = List.of(".jpg", ".jpeg", ".png", ".webp");
 
     @Override
     public MovieDto getById(String id) {
@@ -82,6 +85,8 @@ public class MovieService implements IMovieService {
         String completeFilename = null;
 
         if (inputDto.getCover() != null) {
+            if (inputDto.getCover().getExtension() == null || !IMAGE_EXTENSION.contains(inputDto.getCover().getExtension())) throw new InvalidFileFormatException("Invalid cover file format, valid formats are: .jpg, .jpeg, .png, .webp");
+
             String uuid = UUID.randomUUID().toString();
             storageService.store(inputDto.getCover().getBase64(), uuid, inputDto.getCover().getExtension());
             completeFilename = uuid + inputDto.getCover().getExtension();

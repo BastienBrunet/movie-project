@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/files")
@@ -23,7 +24,7 @@ public class FileController {
 
         Resource file = storageService.loadAsResource(filename);
 
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,
+                "image/" + Objects.requireNonNull(file.getFilename()).split("\\.")[1]).body(file);
     }
 }

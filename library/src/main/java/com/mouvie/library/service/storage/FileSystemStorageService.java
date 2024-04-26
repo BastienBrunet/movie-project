@@ -79,7 +79,6 @@ public class FileSystemStorageService implements IFileSystemStorageService {
             else {
                 throw new StorageFileNotFoundException(
                         "File not found: " + filename);
-
             }
         }
         catch (MalformedURLException e) {
