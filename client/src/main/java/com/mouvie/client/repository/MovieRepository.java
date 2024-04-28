@@ -2,6 +2,7 @@ package com.mouvie.client.repository;
 
 import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.client.dto.model.movie.MovieDto;
+import com.mouvie.library.model.Movie;
 import com.mouvie.library.repository.MovieLibRepository;
 
 import java.util.List;
@@ -26,4 +27,10 @@ public interface MovieRepository extends MovieLibRepository {
 			+ " JOIN m.categories c " //
 			+ " WHERE m.id = :id ") //
     List<CategoryDto> findCategoriesOfMovie(String id, boolean isHalJson);
+	
+	 Page<Movie> findByNameContainingAndDescriptionContaining(String name, String description, Pageable pageable);
+	
+	 Page<Movie> findByNameContaining(String name, Pageable pageable);
+    
+	 Page<Movie> findByDescriptionContaining(String description, Pageable pageable);
 }

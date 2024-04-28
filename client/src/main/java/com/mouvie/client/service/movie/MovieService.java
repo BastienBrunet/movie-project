@@ -10,8 +10,10 @@ import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.client.dto.model.movie.MovieDto;
 import com.mouvie.client.dto.model.movie.MovieInputDto;
 import com.mouvie.client.dto.model.page.PaginationPublicDto;
+import com.mouvie.client.repository.CategoryRepository;
 import com.mouvie.client.repository.MovieRepository;
 import com.mouvie.client.tools.factory.MovieFactory;
+import com.mouvie.library.model.Category;
 import com.mouvie.library.model.Movie;
 import com.mouvie.library.service.storage.IFileSystemStorageService;
 import lombok.AllArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -28,6 +31,7 @@ import java.util.UUID;
 public class MovieService implements IMovieService {
 
     private final MovieRepository movieRepository;
+    private final CategoryRepository categoryRepository;
     private final IFileSystemStorageService storageService;
     private final AppContext appContext;
 
@@ -51,13 +55,34 @@ public class MovieService implements IMovieService {
 
         return new PaginationPublicDto(movies, MovieController.class, appContext.isHalJson());
     }
+    
+    public PaginationPublicDto getMoviesByTitleOrDescription(String name, String description, Pageable pageable) {
+    	Page<MovieDto> movies;
+    	if (name != null && description != null) {
+    		 Page<Movie>moviesPage = movieRepository.findByNameContainingAndDescriptionContaining(name, description, pageable);
+    		 movies = moviesPage.map(movie -> MovieDtoMapper.toMovieDto(movie, appContext.isHalJson()));
+        } else if (name != null) {
+        	 Page<Movie>moviesPage = movieRepository.findByNameContaining(name, pageable);
+        	 movies = moviesPage.map(movie -> MovieDtoMapper.toMovieDto(movie, appContext.isHalJson()));
+        } else if (description != null) {
+        	 Page<Movie>moviesPage = movieRepository.findByDescriptionContaining(description, pageable);
+        	 movies = moviesPage.map(movie -> MovieDtoMapper.toMovieDto(movie, appContext.isHalJson()));
+        } else {
+        	 Page<Movie>moviesPage = movieRepository.findAll(pageable);
+        	 movies = moviesPage.map(movie -> MovieDtoMapper.toMovieDto(movie, appContext.isHalJson()));
+        }
+    	 return new PaginationPublicDto(movies, MovieController.class, appContext.isHalJson());
+    }
 
     @Override
     public MovieDto create(MovieInputDto inputDto) {
 
         String completeFilename = saveMovieCover(inputDto);
-
-        Movie movie = MovieFactory.createMovie(inputDto, completeFilename);
+        
+        List<Category> categories = checkCategoryExist(inputDto.getCategoryIds());
+        
+        Movie movie = MovieFactory.createMovie(inputDto, completeFilename, categories);
+        
         movieRepository.save(movie);
 
         return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
@@ -69,7 +94,9 @@ public class MovieService implements IMovieService {
 
         String completeFilename = saveMovieCover(inputDto);
 
-        movie = MovieFactory.updateMovie(movie, inputDto, completeFilename);
+        List<Category> categories = checkCategoryExist(inputDto.getCategoryIds());
+        
+        movie = MovieFactory.updateMovie(movie, inputDto, completeFilename, categories);
         movieRepository.save(movie);
 
         return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
@@ -92,5 +119,17 @@ public class MovieService implements IMovieService {
             completeFilename = uuid + inputDto.getCover().getExtension();
         }
         return completeFilename;
+    }
+    
+    // Vérifier l'existence des catégories
+    private List<Category> checkCategoryExist (List<String> categoryIds) {
+    	
+        List<Category> categories = new ArrayList<>();
+        for (String categoryId : categoryIds) {
+            Category category = categoryRepository.findById(categoryId)
+            		.orElseThrow( () -> new ElementNotFoundException(String.format("Unable to find Category [id = %s]", categoryId)));
+            categories.add(category);
+        }
+        return categories;
     }
 }

@@ -30,8 +30,8 @@ Pour plus de simplicité, vous pouvez utiliser Docker, ou si vous êtes à l'ais
 - Ouvrir un CMD
 - Utilisez la commande  `cd` pour naviguer jusqu'à la racine du projet, où ce trouve le fichier `docker-compose.yaml`
 - Lancer la commande :
- ```sh
-   docker compose up -d
+```sh
+docker compose up -d
 ```
 
 
@@ -57,7 +57,7 @@ Pour plus de simplicité, vous pouvez utiliser Docker, ou si vous êtes à l'ais
 
 1. Avant tout, cloner le projet ;) 
 ```sh
-   git clone https://github.com/BastienBrunet/movie-project.git
+git clone https://github.com/BastienBrunet/movie-project.git
 ```
 
 2. Ouvrer le projet avec un IDE (Eclipse, Intellij ou celui que vous connaissez bien pour du JAVA)
@@ -120,6 +120,7 @@ On a fait le premier projet séparemment, puis on a décid d'utiliser la base de
 - La date de parution (date format ISO 8601)
 - La note (entier entre 0 et 5, optionel)
 - Un film doit être attaché à une ou plusieurs catégories
+- Un film a une affiche
 
 
 ### Les codes de retour sont implémentés :
@@ -169,7 +170,7 @@ On doit pouvoir lister les catégories d’un film et inversement
 ### Uploader une affiche de film (photo)
 
 Il devra : 
-- Etre valider, (type mime, poids …),
+- Etre validé : (type mime, poids …),
 - Le rendre disponible avec un lien 
 - Et surtout pouvoir l’afficher
 

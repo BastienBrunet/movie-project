@@ -39,6 +39,14 @@ public class MovieController extends BaseController {
     public ResponseEntity<PaginationPublicDto> getAll(Pageable pageable){
         return ResponseEntity.ok(movieService.getAll(pageable));
     }
+    
+    @GetMapping("/search")
+    public ResponseEntity<PaginationPublicDto> getMoviesByNameOrDescription(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            Pageable pageable) {
+        return ResponseEntity.ok(movieService.getMoviesByTitleOrDescription(name, description, pageable));
+    }
 
     @PostMapping
     public ResponseEntity<MovieDto> createMovie(@Valid @RequestBody MovieInputDto movieInputDto){
