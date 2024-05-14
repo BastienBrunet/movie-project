@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mouvie</groupId>
-    <artifactId>client</artifactId>
+    <artifactId>movie</artifactId>
     <version>0.0.1</version>
-    <name>client</name>
-    <description>client</description>
+    <name>movie</name>
+    <description>movie</description>
     <properties>
         <java.version>21</java.version>
     </properties>

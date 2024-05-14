@@ -16,8 +16,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>client</module>
+        <module>movie</module>
         <module>library</module>
+        <module>auth</module>
     </modules>
 
 </project>
