@@ -1,7 +1,7 @@
 package com.mouvie.auth.service.account;
 
-import com.mouvie.auth.dto.account.InputAccountDto;
-import com.mouvie.auth.dto.account.OutputAccountDto;
+import com.mouvie.auth.dto.model.account.InputAccountDto;
+import com.mouvie.auth.dto.model.account.OutputAccountDto;
 
 public interface IAccountService {
 

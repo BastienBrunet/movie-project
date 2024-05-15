@@ -1,15 +1,14 @@
 package com.mouvie.auth.controller;
 
-import com.mouvie.auth.dto.account.InputAccountDto;
-import com.mouvie.auth.dto.account.OutputAccountDto;
-import com.mouvie.auth.dto.token.OutputAccessTokenDto;
-import com.mouvie.auth.dto.token.OutputRefreshTokenDto;
-import com.mouvie.auth.dto.token.TokenCreationDto;
+import com.mouvie.auth.dto.model.token.OutputAccessTokenDto;
+import com.mouvie.auth.dto.model.token.OutputRefreshTokenDto;
+import com.mouvie.auth.dto.model.token.TokenCreationDto;
 import com.mouvie.auth.service.token.ITokenService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -5,14 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 @Data
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
-@Table(name = "roles")
-public class Role {
+@Table(name = "user_status")
+public class UserStatus {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

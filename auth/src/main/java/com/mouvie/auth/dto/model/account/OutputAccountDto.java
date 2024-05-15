@@ -1,10 +1,12 @@
-package com.mouvie.auth.dto.account;
+package com.mouvie.auth.dto.model.account;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -15,6 +17,6 @@ public class OutputAccountDto extends RepresentationModel<OutputAccountDto> {
     private String uuid;
     private String login;
     private List<String> roles;
-    private String createdAt;
-    private String updatedAt;
+    private Instant createdAt;
+    private Instant updatedAt;
 }

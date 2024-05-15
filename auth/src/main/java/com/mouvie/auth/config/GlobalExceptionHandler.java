@@ -1,6 +1,7 @@
 package com.mouvie.auth.config;
 
 import com.mouvie.auth.config.customexception.ElementNotFoundException;
+import com.mouvie.auth.config.customexception.ForbiddenException;
 import com.mouvie.auth.config.customexception.InvalidFileFormatException;
 import com.mouvie.library.exception.StorageFileNotFoundException;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -58,6 +60,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ElementNotFoundException.class)
     public ResponseEntity<Object> handleElementNotFoundException(ElementNotFoundException ex) {
         return response(ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ResponseEntity<Object> handleForbiddenException(ForbiddenException ex) {
+        return response(ex, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handleAccessDeniedException(AccessDeniedException ex) {
+        return response(ex, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(StorageFileNotFoundException.class)

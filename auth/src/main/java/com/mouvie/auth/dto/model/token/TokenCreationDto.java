@@ -1,4 +1,4 @@
-package com.mouvie.auth.dto.token;
+package com.mouvie.auth.dto.model.token;
 
 import lombok.Data;
 import lombok.experimental.Accessors;

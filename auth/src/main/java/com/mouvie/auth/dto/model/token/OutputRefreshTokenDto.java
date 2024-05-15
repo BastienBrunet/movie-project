@@ -1,9 +1,13 @@
-package com.mouvie.auth.dto.token;
+package com.mouvie.auth.dto.model.token;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Accessors(chain = true)
@@ -11,7 +15,7 @@ import org.springframework.hateoas.RepresentationModel;
 public class OutputRefreshTokenDto extends RepresentationModel<OutputRefreshTokenDto> {
 
     private String accessToken;
-    private String accessTokenExpiresAt;
+    private Instant accessTokenExpiresAt;
     private String refreshToken;
-    private String refreshTokenExpiresAt;
+    private Instant refreshTokenExpiresAt;
 }

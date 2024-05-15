@@ -1,5 +1,6 @@
 package com.mouvie.auth.config.appcontext;
 
+import com.mouvie.library.model.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -7,5 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AppContext {
 
+    private User currentUser;
     private boolean isHalJson;
 }

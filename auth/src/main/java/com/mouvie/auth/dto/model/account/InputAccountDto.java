@@ -1,4 +1,4 @@
-package com.mouvie.auth.dto.account;
+package com.mouvie.auth.dto.model.account;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
