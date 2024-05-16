@@ -1,4 +1,4 @@
-package com.mouvie.auth.tools;
+package com.mouvie.library.tools;
 
 import lombok.Getter;
 

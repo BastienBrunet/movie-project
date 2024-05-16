@@ -9,7 +9,7 @@ import com.mouvie.auth.dto.model.account.OutputAccountDto;
 import com.mouvie.auth.repository.role.RoleRepository;
 import com.mouvie.auth.repository.user.UserRepository;
 import com.mouvie.auth.repository.user.UserStatusRepository;
-import com.mouvie.auth.tools.RolesEnum;
+import com.mouvie.library.tools.RolesEnum;
 import com.mouvie.library.model.Role;
 import com.mouvie.library.model.User;
 import com.mouvie.library.model.UserStatus;

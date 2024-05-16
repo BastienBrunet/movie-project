@@ -1,7 +1,7 @@
-package com.mouvie.auth.config.security;
+package com.mouvie.security.config.security;
 
-import com.mouvie.auth.config.service.UserDetailsServiceImpl;
 import com.mouvie.library.tools.RolesEnum;
+import com.mouvie.security.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
