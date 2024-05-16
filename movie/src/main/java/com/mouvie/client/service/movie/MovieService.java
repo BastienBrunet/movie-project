@@ -1,7 +1,6 @@
 package com.mouvie.client.service.movie;
 
 
-import com.mouvie.client.config.appcontext.AppContext;
 import com.mouvie.client.config.customexception.ElementNotFoundException;
 import com.mouvie.client.config.customexception.InvalidFileFormatException;
 import com.mouvie.client.controller.MovieController;
@@ -16,11 +15,11 @@ import com.mouvie.client.tools.factory.MovieFactory;
 import com.mouvie.library.model.Category;
 import com.mouvie.library.model.Movie;
 import com.mouvie.library.service.storage.IFileSystemStorageService;
+import com.mouvie.security.config.appcontext.AppContext;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;

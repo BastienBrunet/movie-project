@@ -1,7 +1,8 @@
 package com.mouvie.security.config.security;
 
-import com.mouvie.security.service.JwtService;
-import com.mouvie.security.service.UserDetailsServiceImpl;
+import com.mouvie.security.config.service.JwtService;
+import com.mouvie.security.config.service.UserDetailsServiceImpl;
+import com.mouvie.security.repository.AuthenticationApiRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +19,8 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
+
+    private static final String AUTH_API_URL_PROPERTY = "auth.url";
 
     @Autowired
     private JwtService jwtService;
@@ -38,7 +41,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(username);
-            if(jwtService.validateToken(token, userDetails)){
+            String authApiUrl = getEnvironment().getProperty(AUTH_API_URL_PROPERTY);
+            if(jwtService.validateToken(token, userDetails) && AuthenticationApiRepository.checkTokenSignatureIsValid(authApiUrl, token)){
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

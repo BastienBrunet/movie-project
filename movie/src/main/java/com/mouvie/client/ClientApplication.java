@@ -8,14 +8,11 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.hateoas.config.EnableHypermediaSupport;
-
-import static org.springframework.hateoas.config.EnableHypermediaSupport.HypermediaType.HAL;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.mouvie.client", "com.mouvie.library"})
+@ComponentScan(basePackages = {"com.mouvie.client", "com.mouvie.library", "com.mouvie.security"})
 @EntityScan(basePackages = "com.mouvie.library.model")
-@EnableJpaRepositories("com.mouvie.client.repository")
+@EnableJpaRepositories( basePackages = {"com.mouvie.client.repository", "com.mouvie.security.repository"})
 public class ClientApplication {
 
     public static void main(String[] args) {

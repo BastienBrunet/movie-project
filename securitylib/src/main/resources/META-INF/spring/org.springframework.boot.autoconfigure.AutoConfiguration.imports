@@ -1,0 +1,3 @@
+com.mouvie.security.config.appcontext.LazyBeanConfig
+com.mouvie.security.config.WebConfig
+com.mouvie.security.config.security.SecurityConfig

@@ -16,9 +16,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>movie</module>
-        <module>library</module>
         <module>auth</module>
+        <module>movie</module>
+        <module>securitylib</module>
+        <module>library</module>
     </modules>
 
 </project>

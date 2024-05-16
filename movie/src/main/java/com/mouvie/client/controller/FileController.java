@@ -3,12 +3,11 @@ package com.mouvie.client.controller;
 import com.mouvie.library.service.storage.IFileSystemStorageService;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
 import java.util.Objects;
 
 @RestController
@@ -18,6 +17,7 @@ public class FileController {
 
     private final IFileSystemStorageService storageService;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {

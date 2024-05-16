@@ -1,14 +1,28 @@
-version: '3'
 
 services:
-  app:
-    build: .
+  movie-service:
+    build:
+      context: .
+      dockerfile: movie/Dockerfile
     depends_on:
       - db
+      - auth-service
     ports:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: auth/Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
   db:
     image: 'postgres:16-alpine3.18'
     ports:

@@ -1,6 +1,6 @@
 package com.mouvie.client.service.category;
 
-import com.mouvie.client.config.appcontext.AppContext;
+import com.mouvie.security.config.appcontext.AppContext;
 import com.mouvie.client.config.customexception.ElementNotFoundException;
 import com.mouvie.client.controller.CategoryController;
 import com.mouvie.client.dto.mapper.CategoryDtoMapper;

@@ -1,7 +1,8 @@
 package com.mouvie.security.config.security;
 
 import com.mouvie.library.tools.RolesEnum;
-import com.mouvie.security.service.UserDetailsServiceImpl;
+import com.mouvie.security.config.customizable.AbstractHttpSecurityConfig;
+import com.mouvie.security.config.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,8 +32,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    //https://www.baeldung.com/spring-boot-custom-auto-configuration
+
     @Autowired
     JwtAuthFilter jwtAuthFilter;
+
+    @Autowired
+    AbstractHttpSecurityConfig abstractHttpSecurityConfig;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -44,10 +50,7 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(
                 (requests) ->
-                        requests
-                                .requestMatchers("/token", "/refresh-token/**", "/validate/**").permitAll()
-                                .anyRequest()
-                                .authenticated()
+                        abstractHttpSecurityConfig.getSecurityPattern(requests)
         );
 
         http.csrf(AbstractHttpConfigurer::disable);

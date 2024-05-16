@@ -1,4 +1,4 @@
-package com.mouvie.security.service;
+package com.mouvie.security.config.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,7 +20,9 @@ public class JwtService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractAllClaims(token);
+
+        String unsignedToken = token.substring(0, token.lastIndexOf(".") + 1); // Remove signature to avoid checking it since we don't have it here
+        final Claims claims = extractAllClaims(unsignedToken);
         return claimsResolver.apply(claims);
     }
 
@@ -28,7 +30,7 @@ public class JwtService {
         return Jwts
                 .parserBuilder()
                 .build()
-                .parseClaimsJws(token)
+                .parseClaimsJwt(token)
                 .getBody();
     }
 

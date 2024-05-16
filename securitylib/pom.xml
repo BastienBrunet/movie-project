@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mouvie</groupId>
-    <artifactId>security</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>security</name>
-    <description>security</description>
+    <artifactId>securitylib</artifactId>
+    <version>0.0.1</version>
+    <name>security-lib</name>
+    <description>security library to use in secured services</description>
     <properties>
         <java.version>21</java.version>
     </properties>
@@ -73,12 +73,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <skip>true</skip>
                 </configuration>
             </plugin>
         </plugins>
