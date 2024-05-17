@@ -3,7 +3,8 @@ package com.mouvie.auth.controller;
 import com.mouvie.auth.dto.model.token.OutputAccessTokenDto;
 import com.mouvie.auth.dto.model.token.OutputRefreshTokenDto;
 import com.mouvie.auth.dto.model.token.TokenCreationDto;
-import com.mouvie.auth.service.token.ITokenService;
+import com.mouvie.auth.service.token.TokenService;
+
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
@@ -17,11 +18,11 @@ import java.time.Duration;
 @RestController
 public class TokenController {
 
-    private final ITokenService tokenService;
+    private final TokenService tokenService;
     private final Bucket shortTimeBucket;
     private final Bucket longTimeBucket;
 
-    public TokenController(ITokenService tokenService) {
+    public TokenController(TokenService tokenService) {
         this.tokenService = tokenService;
 
         // Bucket that generates 3 tokens every 5 minutes

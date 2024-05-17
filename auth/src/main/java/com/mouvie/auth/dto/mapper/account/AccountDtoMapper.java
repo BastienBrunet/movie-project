@@ -8,7 +8,7 @@ public class AccountDtoMapper {
 
     public static OutputAccountDto toOutputAccountDto(User user){
         return new OutputAccountDto()
-                .setUuid(user.getId())
+                .setUid(user.getId())
                 .setLogin(user.getUsername())
                 .setCreatedAt(user.getCreatedOn())
                 .setUpdatedAt(user.getLastUpdatedOn())

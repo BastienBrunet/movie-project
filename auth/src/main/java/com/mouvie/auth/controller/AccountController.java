@@ -2,7 +2,7 @@ package com.mouvie.auth.controller;
 
 import com.mouvie.auth.dto.model.account.InputAccountDto;
 import com.mouvie.auth.dto.model.account.OutputAccountDto;
-import com.mouvie.auth.service.account.IAccountService;
+import com.mouvie.auth.service.account.AccountService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @AllArgsConstructor
 public class AccountController {
 
-    private final IAccountService accountService;
+    private final AccountService accountService;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping("/{id}")

@@ -3,6 +3,7 @@ package com.mouvie.auth.service.account;
 import com.mouvie.auth.config.appcontext.AppContext;
 import com.mouvie.auth.config.customexception.ElementNotFoundException;
 import com.mouvie.auth.config.customexception.ForbiddenException;
+import com.mouvie.auth.config.customexception.LoginAlreadyExistsException;
 import com.mouvie.auth.dto.mapper.account.AccountDtoMapper;
 import com.mouvie.auth.dto.model.account.InputAccountDto;
 import com.mouvie.auth.dto.model.account.OutputAccountDto;
@@ -46,9 +47,15 @@ public class AccountService implements IAccountService {
     @Override
     public OutputAccountDto update(String id, InputAccountDto inputAccountDto) {
         User user = isEqualToAlias(id) ? appContext.getCurrentUser() : getUserById(id);
+        
 
         if (!isUserAdmin(appContext.getCurrentUser()) && !appContext.getCurrentUser().getRoles().stream().map(Role::getName).toList().equals(inputAccountDto.getRoles())) throw new ForbiddenException("Only admin can update roles");
 
+        // Vérification si le login existe déjà
+        if (!user.getUsername().equals(inputAccountDto.getLogin()) && loginAlreadyExists(inputAccountDto.getLogin()) ) {
+            throw new LoginAlreadyExistsException("Login already exists");
+        }
+        
         user = applyUserChanges(inputAccountDto, user);
 
         return AccountDtoMapper.toOutputAccountDto(user);
@@ -57,6 +64,10 @@ public class AccountService implements IAccountService {
     @Override
     public OutputAccountDto create(InputAccountDto inputAccountDto) {
         User userToCreate = new User();
+        
+        if (loginAlreadyExists(inputAccountDto.getLogin())) {
+            throw new LoginAlreadyExistsException("Login already exists");
+        }
 
         userToCreate = applyUserChanges(inputAccountDto, userToCreate);
 
@@ -101,5 +112,9 @@ public class AccountService implements IAccountService {
     private UserStatus getStatusFromInput(String status) {
         if (status == null) return userStatusRepository.findByName("Open").get();
         return userStatusRepository.findByName(status).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find status [name = %s]", status)));
+    }
+    
+    private boolean loginAlreadyExists (String login) {
+    	return userRepository.existsByUsername(login);
     }
 }

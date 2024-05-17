@@ -14,7 +14,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class OutputAccountDto extends RepresentationModel<OutputAccountDto> {
 
-    private String uuid;
+    private String uid;
     private String login;
     private List<String> roles;
     private Instant createdAt;
