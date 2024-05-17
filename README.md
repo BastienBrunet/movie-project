@@ -1,4 +1,4 @@
-V2 pour TP 2 du 23/04/2024 : Réunification de 2 projets individuels pour mettre en commun et continuer de travailler en groupe sur le reste du projet
+V3 pour TP 3 du 17/05/2024 : Le webservice d'authentification
 
 
 # WEB SERVICE : Movie Project
@@ -27,12 +27,6 @@ Pour plus de simplicité, vous pouvez utiliser Docker, ou si vous êtes à l'ais
 
 #### Avec Docker
 - Installer Docker : https://docs.docker.com/engine/install/
-- Ouvrir un CMD
-- Utilisez la commande  `cd` pour naviguer jusqu'à la racine du projet, où ce trouve le fichier `docker-compose.yaml`
-- Lancer la commande :
-```sh
-docker compose up -d
-```
 
 
 #### Avec tout le nécessaire en local
@@ -60,21 +54,33 @@ docker compose up -d
 git clone https://github.com/BastienBrunet/movie-project.git
 ```
 
-2. Ouvrer le projet avec un IDE (Eclipse, Intellij ou celui que vous connaissez bien pour du JAVA)
+2. Avec Docker 
+	- Ouvrir un CMD
+	- Utilisez la commande  `cd` pour naviguer jusqu'à la racine du projet, où ce trouve le fichier `docker-compose.yaml`
+	- Lancer la commande :
+	```sh
+	docker compose up -d
+	```
+
+3. Ou en Local
+	- Ouvrer le projet avec un IDE (Eclipse, Intellij ou celui que vous connaissez bien pour du JAVA)
 		
-- Un exemple avec Eclipse ( https://www.eclipse.org/downloads/ )
-	- Ouvrez votre projet dans Eclipse 
-	- Lancez Eclipse et ouvrez le projet en utilisant  File -> Open Projects from File System ou  File -> Import -> Maven -> Existing Maven Projects, selon votre configuration. 
-	- Ouvrer le projet client, src/main/resources
-		- Modifier le fichier `application-local.properties` avec votre username et mot de passe PostgreSQL
-	- Exécutez le projet : 
-		- Aller dans le projet client, src/main/java/com/mouvie/client
-		- Cliquez avec le bouton droit de la classe `ClientApplication`, sélectionnez  Run As -> Debug Configuration 
-		- Choisissez le Profile `local`
+		- Un exemple avec Eclipse ( https://www.eclipse.org/downloads/ )
+			- Ouvrez votre projet dans Eclipse 
+			- Lancez Eclipse et ouvrez le projet en utilisant  File -> Open Projects from File System ou  File -> Import -> Maven -> Existing Maven Projects, selon votre configuration. 
+			- Ouvrez le module `movie` et le module `auth`, src/main/resources
+				- Modifier les 2 fichiers `application-local.properties` avec votre username et mot de passe PostgreSQL
+			- Lancez les 2 services (`movie` et `auth`) : 
+				- Aller dans chacun des modules, src/main/java/com/mouvie/MODULE
+				- Cliquez avec le bouton droit de la classe Application (`ClientApplication` et `AuthApplication`), sélectionnez  Run As -> Run Configurations 
+				- Choisissez le Profile `local`
+				- Vos 2 services doivent tourner en même temps (http://localhost:8080/api pour le client, et http://localhost:8081/api pour l'authentification)
 	
  
-Maven téléchargera les dépendances nécessaires, compilera le code source et exécutera l'application Spring Boot. 
-Vous pourrez accéder à l'application via un navigateur Web ou un outil comme Postman en utilisant l'URL par défaut http://localhost:8080/
+Maven téléchargera les dépendances nécessaires, compilera le code source et exécutera les applications Spring Boot. 
+
+4. Tester !
+Peut importe la méthode, vous pourrez accéder à l'application via un navigateur Web ou un outil comme Postman en utilisant l'URL par défaut http://localhost:8080/api
 
 
 ## Contexte
@@ -98,7 +104,7 @@ C’est aussi très pratique pour mettre en place les bases des projets sur lesq
 - Bastien Brunet M2 Développement Logiciel, Mobile et IOT
 - Clara Vesval M2 Développement Logiciel, Mobile et IOT
 
-On a fait le premier projet séparemment, puis on a décid d'utiliser la base de code de Bastien Brunet pour continuer le TP 2
+On a fait le premier projet séparemment, puis on a décidé d'utiliser la base de code de Bastien Brunet pour continuer le TP 2
 
 (TP 1 de Clara Vesval : https://github.com/Clara-1606/WebService-Movie1)
 
@@ -113,7 +119,8 @@ On a fait le premier projet séparemment, puis on a décid d'utiliser la base de
 
 (Faire plaisir à Richardson)
 
-### L’entité film dispose des éléments suivants :
+### Les films :
+L’entité film dispose des éléments suivants :
 
 - Le nom (texte libre, maximum 128 charactères)
 - La description (texte libre, maximum 2048 charactères)
@@ -121,6 +128,21 @@ On a fait le premier projet séparemment, puis on a décid d'utiliser la base de
 - La note (entier entre 0 et 5, optionel)
 - Un film doit être attaché à une ou plusieurs catégories
 - Un film a une affiche
+
+
+### Les utilisateurs 
+Les utilisateurs ont : 
+- Un login
+- Un mot de passe (hashé)
+- Un statut, qui peut être : 
+	- "open" pour un compte ouvert
+	- "closed" pour un compte fermé
+- Un rôle, qui peut être : 
+	- "ROLE_USER" pour un simple utilisateur
+	- "ROLE_ADMIN" pour un administrateur
+		- Un "ROLE_ADMIN" dispose aussi de "ROLE_USER" par héritage.
+- Une date de création
+- Une date de modification
 
 
 ### Les codes de retour sont implémentés :
@@ -175,6 +197,18 @@ Il devra :
 - Et surtout pouvoir l’afficher
 
 
+### WebService d’authentification
+- Créer un compte utilisateur (soit par un admin, soit par un utilisateur non identifié)
+- Afficher / Editer un compte utilisateur
+- Créer un jeton (Token), utilisable par d’autres services 
+- Permet de renouveler régulièrement ce jeton sans avoir à refaire toute la procédure
+- Appliquer les notions élémentaires de sécurité pour être protégée du brut force
+
+
+### Système de droits
+Seul un admin peut créer / mettre à jour / supprimer un film ou une catégorie !
+
+
 
 ## Documentations
 
@@ -185,6 +219,8 @@ Implémentation de la documentation OpenAPI (anciennement Swagger) disponible lo
 Implémentation de la documentation Postman disponible n'importe quand :
 - https://documenter.getpostman.com/view/25108943/2sA3Bq5rR2
 
+- Contrat d'interface
+<img src="./contrat_interface/contrat_auth.png" alt="contrat interface authentification" width="100" />
 
 
 ## Contact 
