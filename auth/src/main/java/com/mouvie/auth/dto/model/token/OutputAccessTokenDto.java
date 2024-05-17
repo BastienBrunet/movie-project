@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.Instant;
-import java.util.Date;
 
 @Data
 @Accessors(chain = true)

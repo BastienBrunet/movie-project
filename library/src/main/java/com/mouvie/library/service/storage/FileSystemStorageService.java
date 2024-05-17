@@ -3,7 +3,6 @@ package com.mouvie.library.service.storage;
 import com.mouvie.library.exception.StorageException;
 import com.mouvie.library.exception.StorageFileNotFoundException;
 import com.mouvie.library.tools.Base64Helper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;

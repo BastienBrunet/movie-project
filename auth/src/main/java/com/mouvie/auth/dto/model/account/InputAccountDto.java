@@ -1,7 +1,6 @@
 package com.mouvie.auth.dto.model.account;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 

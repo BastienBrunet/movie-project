@@ -1,10 +1,6 @@
 package com.mouvie.client.dto.model.page;
 
-
-
 import com.mouvie.client.controller.BaseController;
-import com.mouvie.client.controller.CategoryController;
-import com.mouvie.client.controller.MovieController;
 import com.mouvie.client.tools.helper.HalJsonHelper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

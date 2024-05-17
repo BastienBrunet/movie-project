@@ -1,7 +1,6 @@
 package com.mouvie.client.dto.model.category;
 
 import com.mouvie.client.controller.CategoryController;
-import com.mouvie.client.dto.model.movie.MovieDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

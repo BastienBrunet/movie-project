@@ -2,7 +2,6 @@ package com.mouvie.client.dto.model.movie;
 
 import com.mouvie.client.controller.FileController;
 import com.mouvie.client.controller.MovieController;
-import com.mouvie.client.dto.model.page.PaginationPublicDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

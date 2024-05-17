@@ -5,8 +5,6 @@ import com.mouvie.client.controller.MovieController;
 import com.mouvie.client.dto.model.movie.MovieDto;
 import com.mouvie.library.model.Movie;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 

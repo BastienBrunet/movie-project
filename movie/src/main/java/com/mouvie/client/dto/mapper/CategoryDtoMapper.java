@@ -4,8 +4,6 @@ import com.mouvie.client.controller.CategoryController;
 import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.library.model.Category;
 
-import java.util.List;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
