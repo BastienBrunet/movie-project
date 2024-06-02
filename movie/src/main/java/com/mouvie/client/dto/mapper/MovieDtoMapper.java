@@ -13,15 +13,18 @@ public class MovieDtoMapper {
     public static MovieDto toMovieDto(Movie movie, boolean isHalJson){
 
         MovieDto movieDto = new MovieDto()
-                .setId(movie.getId())
+                .setUid(movie.getId())
                 .setName(movie.getName())
                 .setDescription(movie.getDescription())
                 .setReleaseDate(movie.getReleaseDate())
-                .setRating(movie.getRating());
+                .setRate(movie.getRating())
+        		.setDuration(movie.getDuration())
+        		.setCreatedAt(movie.getCreatedAt())
+                .setUpdatedAt(movie.getUpdatedAt());
 
         if(isHalJson){
-            movieDto.add(linkTo(methodOn(MovieController.class).getMovieById(movieDto.getId())).withSelfRel());
-            movieDto.add(linkTo(methodOn(MovieController.class).getCategoriesOfMovie(movieDto.getId())).withRel("categories"));
+            movieDto.add(linkTo(methodOn(MovieController.class).getMovieById(movieDto.getUid())).withSelfRel());
+            movieDto.add(linkTo(methodOn(MovieController.class).getCategoriesOfMovie(movieDto.getUid())).withRel("categories"));
         }
 
         if (movie.getCover() != null && !movie.getCover().isEmpty()) {

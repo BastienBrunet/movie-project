@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.sql.Date;
+import java.time.Instant;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -18,7 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @EqualsAndHashCode(callSuper = true)
 public class MovieDto extends RepresentationModel<MovieDto> {
 
-    private String id;
+    private String uid;
 
     private String name;
 
@@ -26,21 +27,32 @@ public class MovieDto extends RepresentationModel<MovieDto> {
 
     private Date releaseDate;
 
-    private Integer rating;
+    private Integer rate;
 
     private String cover;
+    
+    private Integer duration;
+    
+    private Instant createdAt;
+    
+    private Instant updatedAt;
+    
+    // si des réservations sont disponible ou non
+   // private boolean hasReservationsAvailable;
 
     //private List<Category> categories;
     
     public MovieDto() {
     }
 
-    public MovieDto(String id, String name, String description, Date releaseDate, Integer rating, String coverFile, boolean isHalJson) {
-        this.id = id;
+    public MovieDto(String id, String name, String description, Date releaseDate, Integer rating, String coverFile, boolean isHalJson, Integer duration) {
+        this.uid = id;
         this.name = name;
         this.description = description;
         this.releaseDate = releaseDate;
-        this.rating = rating;
+        this.rate = rating;
+        this.duration = duration;
+ 
 
         if(isHalJson) {
             add(linkTo(methodOn(MovieController.class).getMovieById(id)).withSelfRel());

@@ -10,7 +10,11 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
+import java.time.Instant;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
@@ -25,20 +29,36 @@ public class Movie {
 
     @Column(length = 128)
     @Size(max = 128)
+    @NotNull
     private String name;
 
-    @Column(length = 2048)
-    @Size(max = 2048)
+    @Column(length = 4096)
+    @Size(max = 4096)
+    @NotNull
     private String description;
 
     @NotNull
     private Date releaseDate;
 
-    @Min(0)
+    @Min(1)
     @Max(5)
+    @NotNull
     private Integer rating;
+    
+    @Min(1)
+    @Max(239)
+    @NotNull
+    private Integer duration;
 
     private String cover;
+    
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_on")
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "last_updated_on")
+    private Instant updatedAt;
     
     // Relationships
 
