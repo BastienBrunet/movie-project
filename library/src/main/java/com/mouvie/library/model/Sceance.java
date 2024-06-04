@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.sql.Date;
+import java.time.Instant;
 
 @Data
 @Entity
@@ -19,20 +19,12 @@ public class Sceance {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    
     @NotNull
-    private Date date;
-    
-    
-    
-    // Relationships
+    private Instant date;
 
-   // @ManyToMany
-   // @JoinTable(
-//            uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "category_id"}),
-//            name = "category_movie",
-//            joinColumns = @JoinColumn(name = "movie_id"),
-//            inverseJoinColumns = @JoinColumn(name = "category_id")
-//            )
-    private String movie; //un UUID V4 pour le format, correspond à l'UID d'un film
+    @ManyToOne
+    private Movie movie; //un UUID V4 pour le format, correspond à l'UID d'un film
+
+    @ManyToOne
+    private Room room;
 }

@@ -3,7 +3,8 @@ package com.mouvie.client.controller;
 import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.client.dto.model.category.CategoryInputDto;
 import com.mouvie.client.dto.model.movie.MovieDto;
-import com.mouvie.client.dto.model.page.PaginationPublicDto;
+import com.mouvie.library.controller.BaseController;
+import com.mouvie.library.dto.page.PaginationPublicDto;
 import com.mouvie.client.service.category.CategoryService;
 
 import jakarta.validation.Valid;

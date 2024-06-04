@@ -8,7 +8,7 @@ import com.mouvie.client.dto.mapper.MovieDtoMapper;
 import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.client.dto.model.movie.MovieDto;
 import com.mouvie.client.dto.model.movie.MovieInputDto;
-import com.mouvie.client.dto.model.page.PaginationPublicDto;
+import com.mouvie.library.dto.page.PaginationPublicDto;
 import com.mouvie.client.repository.CategoryRepository;
 import com.mouvie.client.repository.MovieRepository;
 import com.mouvie.client.tools.factory.MovieFactory;

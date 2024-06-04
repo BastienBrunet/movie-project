@@ -36,9 +36,8 @@ public class MovieDto extends RepresentationModel<MovieDto> {
     private Instant createdAt;
     
     private Instant updatedAt;
-    
-    // si des réservations sont disponible ou non
-   // private boolean hasReservationsAvailable;
+
+    private boolean hasReservationsAvailable;
 
     //private List<Category> categories;
     

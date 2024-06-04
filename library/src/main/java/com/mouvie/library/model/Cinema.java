@@ -6,6 +6,11 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.util.List;
 
 
 @Data
@@ -24,5 +29,14 @@ public class Cinema {
     @NotNull
     private String name;
 
-    
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_on")
+    private Instant createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "last_updated_on")
+    private Instant updatedAt;
+
+    @OneToMany(mappedBy = "cinema")
+    private List<Room> rooms;
 }

@@ -1,17 +1,14 @@
-package com.mouvie.client.dto.model.page;
+package com.mouvie.library.dto.page;
 
-import com.mouvie.client.controller.BaseController;
-import com.mouvie.client.tools.helper.HalJsonHelper;
+
+import com.mouvie.library.controller.BaseController;
+import com.mouvie.library.tools.helper.HalJsonHelper;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.RepresentationModel;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @Data

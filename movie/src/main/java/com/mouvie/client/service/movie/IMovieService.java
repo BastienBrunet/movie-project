@@ -3,9 +3,8 @@ package com.mouvie.client.service.movie;
 import com.mouvie.client.dto.model.category.CategoryDto;
 import com.mouvie.client.dto.model.movie.MovieDto;
 import com.mouvie.client.dto.model.movie.MovieInputDto;
-import com.mouvie.client.dto.model.page.PaginationPublicDto;
+import com.mouvie.library.dto.page.PaginationPublicDto;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

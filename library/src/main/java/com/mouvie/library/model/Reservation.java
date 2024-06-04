@@ -6,11 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
-
-import java.time.Instant;
-
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
 
 @Data
 @Entity
@@ -30,8 +29,9 @@ public class Reservation {
     @Min(1)
     @NotNull
     private Integer seats;
-    
-    private Status status;
+
+    @ManyToOne
+    private ReservationStatus status;
     
     @CreationTimestamp
     @Column(updatable = false, name = "created_on")

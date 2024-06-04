@@ -1,6 +1,6 @@
-package com.mouvie.client.controller;
+package com.mouvie.library.controller;
 
-import com.mouvie.client.dto.model.page.PaginationPublicDto;
+import com.mouvie.library.dto.page.PaginationPublicDto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
