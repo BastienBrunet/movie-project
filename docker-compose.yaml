@@ -1,5 +1,19 @@
 
 services:
+
+  booking-service:
+    build:
+      context: .
+      dockerfile: booking/Dockerfile
+    depends_on:
+      - db
+      - auth-service
+      - rabbitmq
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
   movie-service:
     build:
       context: .
@@ -22,6 +36,12 @@ services:
       - "8081:8081"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+
+  rabbitmq:
+    image: rabbitmq:3.13.3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
 
   db:
     image: 'postgres:16-alpine3.18'

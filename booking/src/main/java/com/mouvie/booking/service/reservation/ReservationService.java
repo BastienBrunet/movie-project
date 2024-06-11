@@ -12,6 +12,8 @@ import java.util.List;
 public class ReservationService implements IReservationService {
     @Override
     public ReservationDto enterReservationTunnel(String movieId, ReservationInputDto reservationInputDto) {
+        // Create a reservation in the open status
+
         return null;
     }
 
@@ -22,11 +24,23 @@ public class ReservationService implements IReservationService {
 
     @Override
     public ReservationDto getReservationById(String id) {
+
+
         return null;
     }
 
     @Override
     public void confirmReservation(String id) {
+
+        // Get reservation by id
+
+        // Check if reservation is still in open status
+
+        // If in open
+            // check the seats left for the sceance
+            // if its the last put all of the other reservations in expired status
+            // if not the last, put the reservation in confirmed status
+
         // TODO: send email to user
 
     }
