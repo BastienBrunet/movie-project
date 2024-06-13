@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 public interface MovieRepository extends MovieLibRepository {
 
     @Query("SELECT " +
-            "new com.mouvie.client.dto.model.movie.MovieDto(m.id, m.name, m.description, m.releaseDate, m.rating, m.cover, :isHalJson) " +
+            "new com.mouvie.client.dto.model.movie.MovieDto(m.id, m.name, m.description, m.releaseDate, m.createdAt, m.updatedAt, m.rating, m.cover, m.duration, :isHalJson) " +
             "FROM Movie m")
     Page<MovieDto> findPage(Pageable pageable, boolean isHalJson);
 

@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.sql.Date;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,11 +22,14 @@ public class Sceance {
     private String id;
 
     @NotNull
-    private Instant date;
+    private Date date;
 
     @ManyToOne
     private Movie movie; //un UUID V4 pour le format, correspond à l'UID d'un film
 
     @ManyToOne
     private Room room;
+
+    @OneToMany(mappedBy = "sceance", cascade = CascadeType.ALL)
+    private List<Reservation> reservations;
 }

@@ -40,7 +40,7 @@ public class SceancesService implements ISceancesService {
     @Override
     public SceancesDto createSceance(String cinemaId, String roomId, SceanceInputDto input) {
 
-        // TODO : send email to every user ?
+        // TODO : send email to every user
         Room room = roomService.getRoomByCinemaIdAndId(cinemaId, roomId);
         Movie movie = movieRepository.findById(input.getMovie()).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", input.getMovie())));
 
@@ -74,4 +74,22 @@ public class SceancesService implements ISceancesService {
 
         return sceanceRepository.getByRoomAndId(room.getId(), sceanceId).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find Sceance [id = %s] for Room [id = %s]", sceanceId, roomId)));
     }
+
+    @Override
+    public Sceance getSceance(String id) {
+        return sceanceRepository.findById(id).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find Sceance [id = %s]", id )));
+    }
+
+    @Override
+    public Integer getAvailableSeatsForSceance(String id) {
+        Sceance sceance = getSceance(id);
+        Integer totalConfirmedSeats = sceanceRepository.getTotalConfirmedSeats(id);
+
+        totalConfirmedSeats = totalConfirmedSeats != null ? totalConfirmedSeats : 0;
+
+
+        return sceance.getRoom().getSeats() - totalConfirmedSeats;
+    }
+
+
 }

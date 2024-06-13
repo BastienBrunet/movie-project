@@ -3,6 +3,7 @@ package com.mouvie.booking.dto.model.sceances;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.sql.Date;
 import java.time.Instant;
 
 @Data
@@ -11,14 +12,14 @@ public class SceancesDto {
 
     private String id;
 
-    private Instant date;
+    private Date date;
 
     private String movieId;
 
     public SceancesDto() {
     }
 
-    public SceancesDto(String id, String movieId, Instant date) {
+    public SceancesDto(String id, String movieId, Date date) {
         this.id = id;
         this.movieId = movieId;
         this.date = date;

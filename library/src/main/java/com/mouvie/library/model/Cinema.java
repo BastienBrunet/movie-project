@@ -37,6 +37,6 @@ public class Cinema {
     @Column(name = "last_updated_on")
     private Instant updatedAt;
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
     private List<Room> rooms;
 }

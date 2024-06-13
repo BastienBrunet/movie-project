@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.mouvie.booking", "com.mouvie.library", "com.mouvie.security"})
 @EntityScan(basePackages = "com.mouvie.library.model")
-@EnableJpaRepositories(basePackages = {"com.mouvie.booking.repository", "com.mouvie.security.repository"})
+@EnableJpaRepositories(basePackages = {"com.mouvie.booking.repository", "com.mouvie.library.repository", "com.mouvie.security.repository"})
 public class BookingApplication {
 
     public static void main(String[] args) {

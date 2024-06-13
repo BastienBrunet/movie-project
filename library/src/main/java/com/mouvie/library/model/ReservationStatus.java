@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Entity
 @NoArgsConstructor
 @Accessors(chain = true)
-@Table(name = "status")
+@Table(name = "reservation_status")
 public class ReservationStatus implements Serializable {
 
     @Id

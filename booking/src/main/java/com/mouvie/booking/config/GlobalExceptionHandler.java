@@ -1,6 +1,7 @@
 package com.mouvie.booking.config;
 
 import com.mouvie.booking.config.customexception.ElementNotFoundException;
+import com.mouvie.library.exception.IncorrectParamException;
 import com.mouvie.library.exception.StorageFileNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -77,7 +78,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
     
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<String> handleUsernameNotFoundException(UsernameNotFoundException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY); // 422 status code
+    public ResponseEntity<Object> handleUsernameNotFoundException(UsernameNotFoundException ex) {
+        return response(ex, HttpStatus.UNPROCESSABLE_ENTITY); // 422 status code
+    }
+
+    @ExceptionHandler(IncorrectParamException.class)
+    public ResponseEntity<Object> handleIncorrectParamException(IncorrectParamException ex) {
+        return response(ex, HttpStatus.UNPROCESSABLE_ENTITY); // 422 status code
     }
 }

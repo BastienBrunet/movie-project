@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
+    public static final String RESERVATION_QUEUE_NAME = "q.reservation";
+    public static final String EMAIL_QUEUE_NAME = "q.email";
+
     private final CachingConnectionFactory connectionFactory;
 
     public RabbitMQConfig(CachingConnectionFactory connectionFactory) {
@@ -18,12 +21,12 @@ public class RabbitMQConfig {
 
     @Bean
     public Queue createReservationQueue() {
-        return new Queue("q.reservation");
+        return new Queue(RESERVATION_QUEUE_NAME);
     }
 
     @Bean
     public Queue createEmailQueue() {
-        return new Queue("q.email");
+        return new Queue(EMAIL_QUEUE_NAME);
     }
 
     // This is used to make the messages readable in the RabbitMQ console

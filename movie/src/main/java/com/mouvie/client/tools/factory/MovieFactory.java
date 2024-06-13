@@ -14,6 +14,7 @@ public class MovieFactory {
                 .setCover(coverFile)
                 .setDescription(inputDto.getDescription())
                 .setReleaseDate(inputDto.getReleaseDate())
+                .setDuration(inputDto.getDuration())
                 .setRating(inputDto.getRating())
                 .setCategories(categories);
     }
@@ -24,6 +25,7 @@ public class MovieFactory {
                 .setCover(coverFile)
                 .setDescription(inputDto.getDescription())
                 .setReleaseDate(inputDto.getReleaseDate())
+                .setDuration(inputDto.getDuration())
                 .setRating(inputDto.getRating())
                 .setCategories(categories);
     }

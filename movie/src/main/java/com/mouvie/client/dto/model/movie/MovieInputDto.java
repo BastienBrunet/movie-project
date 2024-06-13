@@ -30,6 +30,10 @@ public class MovieInputDto {
     @Max(value = 5, message = "Rating should be between 0 and 5")
     @Min(value = 0, message = "Rating should be between 0 and 5")
     private Integer rating;
+
+    @Max(value = 5, message = "Duration should be between 0 and 300")
+    @Min(value = 0, message = "Duration should be between 0 and 300")
+    private Integer duration;
     
     private List<String> categoryIds;
     

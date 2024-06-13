@@ -58,7 +58,7 @@ public class CategoryController extends BaseController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    private ResponseEntity<String> deleteCategory(@PathVariable String id){
+    public ResponseEntity<String> deleteCategory(@PathVariable String id){
     	categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

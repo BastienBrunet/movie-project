@@ -11,12 +11,12 @@ public class SceanceFactory {
         return new Sceance()
                 .setMovie(movie)
                 .setRoom(room)
-                .setDate(inputDto.getDate().toInstant());
+                .setDate(inputDto.getDate());
     }
 
     public static Sceance updateSceance(Sceance sceance, SceanceInputDto inputDto, Movie movie){
         return sceance
                 .setMovie(movie)
-                .setDate(inputDto.getDate().toInstant());
+                .setDate(inputDto.getDate());
     }
 }

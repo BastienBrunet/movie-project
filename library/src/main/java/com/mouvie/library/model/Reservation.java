@@ -44,4 +44,10 @@ public class Reservation {
     @UpdateTimestamp
     @Column(name = "expires_at")
     private Instant expiresAt;
+
+    @ManyToOne
+    private Sceance sceance;
+
+    @ManyToOne
+    private User user;
 }

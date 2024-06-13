@@ -19,4 +19,8 @@ public interface ISceancesService {
     void deleteSceance(String cinemaId, String roomId, String sceanceId);
 
     Sceance getSceance(String cinemaId, String roomId, String sceanceId);
+
+    Sceance getSceance(String id);
+
+    Integer getAvailableSeatsForSceance(String id);
 }
