@@ -1,5 +1,6 @@
 package com.mouvie.booking.service.sceances;
 
+import com.mouvie.booking.config.RabbitMQConfig;
 import com.mouvie.booking.config.customexception.ElementNotFoundException;
 import com.mouvie.booking.dto.mapper.sceance.SceanceDtoMapper;
 import com.mouvie.booking.dto.model.sceances.SceanceInputDto;
@@ -11,7 +12,11 @@ import com.mouvie.library.model.Movie;
 import com.mouvie.library.model.Room;
 import com.mouvie.library.model.Sceance;
 import com.mouvie.library.repository.MovieLibRepository;
+import com.mouvie.library.repository.UserLibRepository;
+import com.mouvie.library.tools.factory.EmailFactory;
+import com.mouvie.security.config.appcontext.AppContext;
 import lombok.AllArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +28,8 @@ public class SceancesService implements ISceancesService {
     private final SceanceRepository sceanceRepository;
     private final RoomService roomService;
     private final MovieLibRepository movieRepository;
+    private final RabbitTemplate rabbitTemplate;
+    private final UserLibRepository userLibRepository;
 
     @Override
     public List<SceancesDto> getAllSceances(String cinemaId, String roomId) {
@@ -39,12 +46,13 @@ public class SceancesService implements ISceancesService {
 
     @Override
     public SceancesDto createSceance(String cinemaId, String roomId, SceanceInputDto input) {
-
-        // TODO : send email to every user
         Room room = roomService.getRoomByCinemaIdAndId(cinemaId, roomId);
         Movie movie = movieRepository.findById(input.getMovie()).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", input.getMovie())));
 
         Sceance newSceance = SceanceFactory.createSceance(input, room, movie);
+
+        // Send email to user
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_QUEUE_NAME, EmailFactory.buildNewSceanceEmail(userLibRepository.findAll(), newSceance));
 
         return SceanceDtoMapper.toDto(sceanceRepository.save(newSceance));
     }
@@ -86,7 +94,6 @@ public class SceancesService implements ISceancesService {
         Integer totalConfirmedSeats = sceanceRepository.getTotalConfirmedSeats(id);
 
         totalConfirmedSeats = totalConfirmedSeats != null ? totalConfirmedSeats : 0;
-
 
         return sceance.getRoom().getSeats() - totalConfirmedSeats;
     }

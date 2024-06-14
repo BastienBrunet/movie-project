@@ -1,6 +1,7 @@
 package com.mouvie.booking.service.reservation;
 
 import com.mouvie.booking.config.RabbitMQConfig;
+import com.mouvie.booking.config.customexception.ElementNotFoundException;
 import com.mouvie.booking.dto.mapper.reservation.ReservationDtoMapper;
 import com.mouvie.booking.dto.model.rabbitmq.QueueDetails;
 import com.mouvie.booking.dto.model.reservation.ReservationDto;
@@ -11,17 +12,21 @@ import com.mouvie.booking.service.sceances.SceancesService;
 import com.mouvie.booking.service.status.reservation.ReservationStatusService;
 import com.mouvie.booking.tools.factory.reservation.ReservationFactory;
 import com.mouvie.library.exception.IncorrectParamException;
+import com.mouvie.library.exception.ReservationExpiredException;
 import com.mouvie.library.model.Movie;
 import com.mouvie.library.model.Reservation;
 import com.mouvie.library.model.ReservationStatus;
 import com.mouvie.library.model.Sceance;
 import com.mouvie.library.tools.enumeration.ReservationStatusEnum;
+import com.mouvie.library.tools.factory.EmailFactory;
 import com.mouvie.security.config.appcontext.AppContext;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -61,27 +66,48 @@ public class ReservationService implements IReservationService {
 
     @Override
     public List<ReservationDto> getAllReservations(String movieId) {
-        return List.of();
+        return reservationRepository.getReservationsByMovieId(movieId);
     }
 
     @Override
     public ReservationDto getReservationById(String id) {
-        return null;
+        Reservation reservation = getReservation(id);
+
+        return ReservationDtoMapper.toReservationDto(reservation);
     }
 
     @Override
     public void confirmReservation(String id) {
 
         // Get reservation by id
+        Reservation reservationToConfirm = getReservation(id);
 
-        // Check if reservation is still in open status
+        // Check if reservation is still in open status and is not expired
+        if (isReservationStillValid(reservationToConfirm)) {
 
-        // If in open
-            // check the seats left for the sceance
-            // if its the last put all of the other reservations in expired status
-            // if not the last, put the reservation in confirmed status
+            // check if there is enough seats available
+            if (sceancesService.getAvailableSeatsForSceance(reservationToConfirm.getSceance().getId()) < reservationToConfirm.getSeats()) throw new IncorrectParamException("Not enough seats left");
 
-        // TODO: send email to user
+            reservationToConfirm.setStatus(reservationStatusService.getReservationStatus(ReservationStatusEnum.CONFIRMED));
 
+            // Send email to user
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_QUEUE_NAME, EmailFactory.buildReservationConfirmedEmail(appContext.getCurrentUser().getUsername(), reservationToConfirm));
+
+        } else {
+            // Set status to expired
+            reservationToConfirm.setStatus(reservationStatusService.getReservationStatus(ReservationStatusEnum.EXPIRED));
+            // Return 410 error
+            throw new ReservationExpiredException(String.format("Reservation [id=%s] has expired", id));
+        }
+    }
+
+    @Override
+    public Reservation getReservation(String id){
+        return reservationRepository.findById(id).orElseThrow(() -> new ElementNotFoundException(String.format("Unable to find Reservation [id = %s]", id)));
+    }
+
+    private boolean isReservationStillValid(Reservation reservation){
+        return Objects.equals(reservation.getStatus().getId(), ReservationStatusEnum.OPEN.getId())
+                && Instant.now().isBefore(reservation.getExpiresAt());
     }
 }

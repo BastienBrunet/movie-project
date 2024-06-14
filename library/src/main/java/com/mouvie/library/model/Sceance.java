@@ -25,7 +25,7 @@ public class Sceance {
     private Date date;
 
     @ManyToOne
-    private Movie movie; //un UUID V4 pour le format, correspond à l'UID d'un film
+    private Movie movie;
 
     @ManyToOne
     private Room room;

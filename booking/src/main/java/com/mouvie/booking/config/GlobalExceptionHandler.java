@@ -2,6 +2,7 @@ package com.mouvie.booking.config;
 
 import com.mouvie.booking.config.customexception.ElementNotFoundException;
 import com.mouvie.library.exception.IncorrectParamException;
+import com.mouvie.library.exception.ReservationExpiredException;
 import com.mouvie.library.exception.StorageFileNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -85,5 +86,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(IncorrectParamException.class)
     public ResponseEntity<Object> handleIncorrectParamException(IncorrectParamException ex) {
         return response(ex, HttpStatus.UNPROCESSABLE_ENTITY); // 422 status code
+    }
+
+    @ExceptionHandler(ReservationExpiredException.class)
+    public ResponseEntity<Object> handleReservationExpiredException(ReservationExpiredException ex) {
+        return response(ex, HttpStatus.GONE); // 410 status code
     }
 }

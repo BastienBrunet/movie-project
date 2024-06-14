@@ -20,4 +20,16 @@ public class ReservationDto {
     private Instant updatedAt;
 
     private Instant expiresAt;
+
+    public ReservationDto() {
+    }
+
+    public ReservationDto(String uid, Integer rank, String status, Instant createdAt, Instant updatedAt, Instant expiresAt) {
+        this.uid = uid;
+        this.rank = rank;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.expiresAt = expiresAt;
+    }
 }
