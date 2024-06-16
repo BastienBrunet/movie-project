@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
-
 @Data
 @Entity
 @NoArgsConstructor
@@ -23,6 +21,4 @@ public class Category {
     @Size(max = 128)
     private String name;
 
-    @ManyToMany(mappedBy = "categories")
-    private List<Movie> movies;
 }

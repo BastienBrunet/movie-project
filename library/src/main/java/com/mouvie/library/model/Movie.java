@@ -8,13 +8,12 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.sql.Date;
 import java.time.Instant;
 import java.util.List;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Data
 @Entity
@@ -63,7 +62,7 @@ public class Movie {
     // Relationships
 
     //fetch = FetchType.EAGER
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "category_id"}),
             name = "category_movie",

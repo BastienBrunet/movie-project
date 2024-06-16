@@ -3,7 +3,7 @@ package com.mouvie.library.dto.email;
 import lombok.Data;
 
 @Data
-public abstract class EmailTemplate {
+public class EmailTemplate {
 
     protected String to;
 

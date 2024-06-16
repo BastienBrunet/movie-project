@@ -1,5 +1,6 @@
 package com.mouvie.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -7,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.util.List;
 
 @Data
@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "sceances")
+@JsonIgnoreProperties(value= {"reservations"})
 public class Sceance {
 
     @Id

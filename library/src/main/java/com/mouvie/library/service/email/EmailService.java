@@ -19,6 +19,9 @@ public class EmailService {
 
     public void sendSimpleMessage(EmailTemplate emailTemplate) {
 
+        log.info("Sending email to {}", emailTemplate.getTo());
+        log.info("Body: {}", emailTemplate.getBody());
+
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(emailConstants.noReply);

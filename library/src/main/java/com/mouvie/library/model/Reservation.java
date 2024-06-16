@@ -40,8 +40,7 @@ public class Reservation {
     @UpdateTimestamp
     @Column(name = "last_updated_on")
     private Instant updatedAt;
-    
-    @UpdateTimestamp
+
     @Column(name = "expires_at")
     private Instant expiresAt;
 

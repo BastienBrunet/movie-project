@@ -18,7 +18,7 @@ public class ReservationConsumer {
 
     @RabbitListener(queues = {"q.reservation"})
     public void consume(Reservation newReservation) {
-        log.info("Received new reservation : " + newReservation.getId());
+        log.info("Received new reservation : {}", newReservation.getId());
 
         newReservation.setExpiresAt(Instant.now().plusSeconds(60*10L)); // Expires in 10mn
 

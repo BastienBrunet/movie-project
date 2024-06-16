@@ -1,5 +1,6 @@
 package com.mouvie.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -18,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Table(name = "rooms")
+@JsonIgnoreProperties(value= {"sceances"})
 public class Room {
 
     @Id

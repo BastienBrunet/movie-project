@@ -13,7 +13,6 @@ import com.mouvie.booking.service.status.reservation.ReservationStatusService;
 import com.mouvie.booking.tools.factory.reservation.ReservationFactory;
 import com.mouvie.library.exception.IncorrectParamException;
 import com.mouvie.library.exception.ReservationExpiredException;
-import com.mouvie.library.model.Movie;
 import com.mouvie.library.model.Reservation;
 import com.mouvie.library.model.ReservationStatus;
 import com.mouvie.library.model.Sceance;
@@ -55,7 +54,7 @@ public class ReservationService implements IReservationService {
         QueueDetails queueDetails = rabbitMqService.getQueueInformations(RabbitMQConfig.RESERVATION_QUEUE_NAME);
 
         // Create reservation object
-        Reservation newReservation = ReservationFactory.createReservation(queueDetails.getMessages(), reservationInputDto, openReservationStatus, appContext.getCurrentUser());
+        Reservation newReservation = ReservationFactory.createReservation(queueDetails.getMessages(), reservationInputDto, sceance, openReservationStatus, appContext.getCurrentUser());
         newReservation = reservationRepository.save(newReservation);
 
         // Publish message on queue

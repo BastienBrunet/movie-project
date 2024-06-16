@@ -15,7 +15,7 @@ public class EmailFactory {
         return List.of(new ReservationConfirmedEmail(to, reservation));
     }
 
-    public static List<NewSceanceEmail> buildNewSceanceEmail(List<User> users, Sceance sceance){
-        return users.stream().map((u) -> new NewSceanceEmail(u.getUsername(), sceance)).toList();
+    public static List<EmailTemplate> buildNewSceanceEmail(List<User> users, Sceance sceance){
+        return users.stream().map((u) -> (EmailTemplate) new NewSceanceEmail(u.getUsername(), sceance)).toList();
     }
 }
