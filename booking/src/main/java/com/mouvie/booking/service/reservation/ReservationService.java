@@ -88,6 +88,7 @@ public class ReservationService implements IReservationService {
             if (sceancesService.getAvailableSeatsForSceance(reservationToConfirm.getSceance().getId()) < reservationToConfirm.getSeats()) throw new IncorrectParamException("Not enough seats left");
 
             reservationToConfirm.setStatus(reservationStatusService.getReservationStatus(ReservationStatusEnum.CONFIRMED));
+            reservationRepository.save(reservationToConfirm);
 
             // Send email to user
             rabbitTemplate.convertAndSend(RabbitMQConfig.EMAIL_QUEUE_NAME, EmailFactory.buildReservationConfirmedEmail(appContext.getCurrentUser().getUsername(), reservationToConfirm));
@@ -95,6 +96,7 @@ public class ReservationService implements IReservationService {
         } else {
             // Set status to expired
             reservationToConfirm.setStatus(reservationStatusService.getReservationStatus(ReservationStatusEnum.EXPIRED));
+            reservationRepository.save(reservationToConfirm);
             // Return 410 error
             throw new ReservationExpiredException(String.format("Reservation [id=%s] has expired", id));
         }

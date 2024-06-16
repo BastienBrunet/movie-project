@@ -39,7 +39,8 @@ public class MovieService implements IMovieService {
     @Override
     public MovieDto getById(String id) {
         Movie movie = movieRepository.findById(id).orElseThrow( () -> new ElementNotFoundException(String.format("Unable to find Movie [id = %s]", id)));
-        return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
+        boolean hasReservationAvailable = movieRepository.hasReservationAvailable(id);
+        return MovieDtoMapper.toMovieDto(movie, hasReservationAvailable, appContext.isHalJson());
     }
 
     @Override
@@ -79,12 +80,14 @@ public class MovieService implements IMovieService {
         String completeFilename = saveMovieCover(inputDto);
         
         List<Category> categories = checkCategoryExist(inputDto.getCategoryIds());
-        
+
         Movie movie = MovieFactory.createMovie(inputDto, completeFilename, categories);
         
         movieRepository.save(movie);
 
-        return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
+        boolean hasReservationAvailable = movieRepository.hasReservationAvailable(inputDto.getId());
+
+        return MovieDtoMapper.toMovieDto(movie, hasReservationAvailable, appContext.isHalJson());
     }
 
     @Override
@@ -98,7 +101,9 @@ public class MovieService implements IMovieService {
         movie = MovieFactory.updateMovie(movie, inputDto, completeFilename, categories);
         movieRepository.save(movie);
 
-        return MovieDtoMapper.toMovieDto(movie, appContext.isHalJson());
+        boolean hasReservationAvailable = movieRepository.hasReservationAvailable(inputDto.getId());
+
+        return MovieDtoMapper.toMovieDto(movie, hasReservationAvailable, appContext.isHalJson());
     }
 
     @Override

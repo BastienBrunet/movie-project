@@ -44,6 +44,28 @@ public class MovieDto extends RepresentationModel<MovieDto> {
     public MovieDto() {
     }
 
+    public MovieDto(String id, String name, String description, Date releaseDate, Instant createdAt, Instant updatedAt, Integer rating, String coverFile, Integer duration, boolean hasReservationsAvailable, boolean isHalJson) {
+        this.uid = id;
+        this.name = name;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.rate = rating;
+        this.hasReservationsAvailable = hasReservationsAvailable;
+        this.duration = duration;
+ 
+
+        if(isHalJson) {
+            add(linkTo(methodOn(MovieController.class).getMovieById(id)).withSelfRel());
+            add(linkTo(methodOn(MovieController.class).getCategoriesOfMovie(id)).withRel("categories"));
+        }
+
+        if (coverFile != null && !coverFile.isEmpty()) {
+            cover = linkTo(methodOn(FileController.class).serveFile(coverFile)).toString();
+        }
+    }
+
     public MovieDto(String id, String name, String description, Date releaseDate, Instant createdAt, Instant updatedAt, Integer rating, String coverFile, Integer duration, boolean isHalJson) {
         this.uid = id;
         this.name = name;
@@ -53,7 +75,7 @@ public class MovieDto extends RepresentationModel<MovieDto> {
         this.updatedAt = updatedAt;
         this.rate = rating;
         this.duration = duration;
- 
+
 
         if(isHalJson) {
             add(linkTo(methodOn(MovieController.class).getMovieById(id)).withSelfRel());
