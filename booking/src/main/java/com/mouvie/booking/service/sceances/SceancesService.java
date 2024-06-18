@@ -14,7 +14,6 @@ import com.mouvie.library.model.Sceance;
 import com.mouvie.library.repository.MovieLibRepository;
 import com.mouvie.library.repository.UserLibRepository;
 import com.mouvie.library.tools.factory.EmailFactory;
-import com.mouvie.security.config.appcontext.AppContext;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;

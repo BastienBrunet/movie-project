@@ -1,7 +1,6 @@
 package com.mouvie.booking.repository.reservation;
 
 import com.mouvie.booking.dto.model.reservation.ReservationDto;
-import com.mouvie.booking.dto.model.room.RoomDto;
 import com.mouvie.library.repository.ReservationLibRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

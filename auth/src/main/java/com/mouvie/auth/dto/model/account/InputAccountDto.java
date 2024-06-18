@@ -2,7 +2,6 @@ package com.mouvie.auth.dto.model.account;
 
 import lombok.Data;
 import lombok.experimental.Accessors;
-import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 

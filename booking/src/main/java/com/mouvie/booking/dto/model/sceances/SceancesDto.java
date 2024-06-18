@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.sql.Date;
-import java.time.Instant;
 
 @Data
 @Accessors(chain = true)
