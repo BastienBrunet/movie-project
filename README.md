@@ -1,4 +1,4 @@
-V3 pour TP 3 du 17/05/2024 : Le webservice d'authentification
+V4 (et FINALEEEEE) pour TP 4 du 18/06/2024 : La réservation de scéances de cinéma
 
 
 # WEB SERVICE : Movie Project
@@ -68,13 +68,13 @@ git clone https://github.com/BastienBrunet/movie-project.git
 		- Un exemple avec Eclipse ( https://www.eclipse.org/downloads/ )
 			- Ouvrez votre projet dans Eclipse 
 			- Lancez Eclipse et ouvrez le projet en utilisant  File -> Open Projects from File System ou  File -> Import -> Maven -> Existing Maven Projects, selon votre configuration. 
-			- Ouvrez le module `movie` et le module `auth`, src/main/resources
-				- Modifier les 2 fichiers `application-local.properties` avec votre username et mot de passe PostgreSQL
-			- Lancez les 2 services (`movie` et `auth`) : 
+			- Ouvrez le module `movie`, le module `auth`, et le module `booking`, src/main/resources
+				- Modifier les 3 fichiers `application-local.properties` avec votre username et mot de passe PostgreSQL
+			- Lancez les 3 services (`movie`, `auth` et `booking`) : 
 				- Aller dans chacun des modules, src/main/java/com/mouvie/MODULE
-				- Cliquez avec le bouton droit de la classe Application (`ClientApplication` et `AuthApplication`), sélectionnez  Run As -> Run Configurations 
+				- Cliquez avec le bouton droit de la classe Application (`ClientApplication`,`AuthApplication` et `BookingApplication`), sélectionnez  Run As -> Run Configurations 
 				- Choisissez le Profile `local`
-				- Vos 2 services doivent tourner en même temps (http://localhost:8080/api pour le client, et http://localhost:8081/api pour l'authentification)
+				- Vos 3 services doivent tourner en même temps (http://localhost:8080/api pour le client, http://localhost:8081/api pour l'authentification et http://localhost:8082/api pour la réservation)
 	
  
 Maven téléchargera les dépendances nécessaires, compilera le code source et exécutera les applications Spring Boot. 
@@ -85,13 +85,11 @@ Peut importe la méthode, vous pourrez accéder à l'application via un navigate
 
 ## Contexte
 
-L’objectif est la création d’un WebService permettant la gestion d’une liste de film.
+L’objectif est la création d’un WebService permettant la gestion d’une liste de film le plus complet en terme de fonctionnalités
 
 
 ## Introduction
 La notion de collection de d’entité (comme des catégories, des langues …) est un des premiers concept croisé en entreprise.
-
-C’est aussi très pratique pour mettre en place les bases des projets sur lesquels vous travaillerez par la suite.
 
 - Il doit disposer de routes de récupération des films (en listing, et récupération d’entité)
 - Il doit être possible de modifier un film
@@ -104,7 +102,7 @@ C’est aussi très pratique pour mettre en place les bases des projets sur lesq
 - Bastien Brunet M2 Développement Logiciel, Mobile et IOT
 - Clara Vesval M2 Développement Logiciel, Mobile et IOT
 
-On a fait le premier projet séparemment, puis on a décidé d'utiliser la base de code de Bastien Brunet pour continuer le TP 2
+On a fait le premier projet séparemment, puis on a décidé d'utiliser la base de code de Bastien Brunet pour continuer les autres TP, et de continuer que tout les cdeux pour le Devoir Final.
 
 (TP 1 de Clara Vesval : https://github.com/Clara-1606/WebService-Movie1)
 
@@ -116,8 +114,9 @@ On a fait le premier projet séparemment, puis on a décidé d'utiliser la base 
 
 
 ## Contraintes 
-
-(Faire plaisir à Richardson)
+- (Faire plaisir à Richardson)
+- Factoriser les fonctionnalités et industrialiser le WebService
+- Disposer des notions nécessaires pour créer des WebServices avec des fonctionnalités plus complexe
 
 ### Les films :
 L’entité film dispose des éléments suivants :
@@ -143,6 +142,12 @@ Les utilisateurs ont :
 		- Un "ROLE_ADMIN" dispose aussi de "ROLE_USER" par héritage.
 - Une date de création
 - Une date de modification
+
+### Les cinémas
+Les cinémas auront : 
+- Des salles avec un certain nombre de place
+- Pouvoir dire si un film est actuellement ou sera au cinéma
+
 
 
 ### Les codes de retour sont implémentés :
@@ -181,7 +186,7 @@ Le résultat doit être paginé (page 1 sur 22, 10 éléments par page par exemp
 
 ### Recherche
 
-Il doit permettre de rechercher par titre ou par description
+Il doit permettre de rechercher par titre ou par description à l'aide du paramètre query
 
 
 ### End Points
@@ -209,6 +214,25 @@ Il devra :
 Seul un admin peut créer / mettre à jour / supprimer un film ou une catégorie !
 
 
+### WebService de réservation
+Les utilisateurs devront pouvoir accéder à une liste de films, certains de ces films auront des disponibilités au cinéma, avec la possibilité de réserver sa place dans une salle :
+
+- Réaliser un WebService de réservation avec des contraintes de charge
+	- L'utilisateur devra prendre un ticket en s'inscrivant dans une liste d'attente il aura les informations suivantes : 
+		- Sa place dans la file
+		- Un status indiquant si il peut valider son inscription ou si sa demande est expirée
+		- Une date d'expiration de la demande si c'est à son tour
+		- Une fois que c'est au tour de l'utilisateur de valider son inscription, il pourra la valider si sa place n'est pas expiré.
+- Faire parler des services ensemble (SOA)
+- Rendre possible une scalabilité horizontale
+
+
+### Notifications par mail
+- Notifier les utilisateurs inscrit d’une sortie prochaine par mail
+- Notifier par mail le bon déroulé des opérations
+
+
+
 
 ## Documentations
 
@@ -219,8 +243,11 @@ Implémentation de la documentation OpenAPI (anciennement Swagger) disponible lo
 Implémentation de la documentation Postman disponible n'importe quand :
 - https://documenter.getpostman.com/view/25108943/2sA3Bq5rR2
 
-- Contrat d'interface
-<img src="./contrat_interface/contrat_auth.png" alt="contrat interface authentification" width="100" />
+- Contrat d'interface : 
+	- Pour l'authentification :
+		<img src="./contrat_interface/contrat_auth.png" alt="contrat interface authentification" width="100" />
+	- Pour la réservation : 
+		- PDF -> /contrat_interface/contrat_total.pdf
 
 
 ## Contact 
